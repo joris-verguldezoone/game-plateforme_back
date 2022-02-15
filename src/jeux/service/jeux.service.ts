@@ -1,36 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateJeuxDto } from '../dto/create-jeux.dto';
-import { UpdateJeuxDto } from '../dto/update-jeux.dto';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {from, Observable} from "rxjs";
 import {Jeux} from "../model/entities/jeux.entity";
-import {JeuxInterface} from "../model/jeux.interface";
 
 @Injectable()
 export class JeuxService {
   constructor(
-      @InjectRepository(Jeux) private readonly jeuxRepository: Repository<JeuxInterface>
+      @InjectRepository(Jeux) private readonly jeuxRepository: Repository<Jeux>
   ){}
 
-  create(jeux: JeuxInterface): Observable <JeuxInterface> {
-    return from(this.jeuxRepository.save(jeux));
+  create(jeux: Jeux): Promise <Jeux> {
+    return this.jeuxRepository.save(jeux);
   }
 
-  findAll(): Observable <JeuxInterface[]> {
-    return from(this.jeuxRepository.find());
+  findAll(): Promise <Jeux[]> {
+    return this.jeuxRepository.find();
   }
 
   findOne(id: number) {
-    return from(this.jeuxRepository.findOne({id}));
+    return this.jeuxRepository.findOne({id});
   }
 
-  update(id: number, jeux: JeuxInterface): Observable<any> {
-    return from(this.jeuxRepository.update(id, jeux));
+  update(id: number, jeux: Jeux): Promise<any> {
+    return this.jeuxRepository.update(id, jeux);
 
   }
 
-  remove(id: number): Observable<any> {
-    return from(this.jeuxRepository.delete(id));
+  remove(id: number): Promise<any> {
+    return this.jeuxRepository.delete(id);
   }
 }

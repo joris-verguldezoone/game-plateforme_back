@@ -1,10 +1,20 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Listeamis } from '../../../listeamis/model/entities/listeami.entity';
 import { Partieuser } from '../../../partieusers/model/entities/partieuser.entity';
 import { Score } from '../../../scores/model/entities/score.entity';
 import { Expose } from 'class-transformer';
+import { Avatar } from '../../../avatars/model/entities/avatar.entity';
 
-@Entity({ schema: 'jeux' })
+@Index('id_avatar', ['idavatar'], {})
+@Entity('user', { schema: 'jeux' })
 export class User {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   public id: number;
@@ -15,11 +25,14 @@ export class User {
   @Column('varchar', { name: 'password', length: 255 })
   public password: string;
 
-  @Column('int', { name: 'id_avatar', nullable: true })
-  public id_avatar: number | null;
+  @Column('int', { name: 'idavatar', nullable: true })
+  public idavatar: number | null;
 
   @Column('int', { name: 'role' })
   public role: number;
+
+  @OneToMany(() => Avatar, (avatar) => avatar.iduser2)
+  public avatars: Avatar[];
 
   @OneToMany(() => Listeamis, (listeamis) => listeamis.iduser3)
   public listeamis: Listeamis[];
@@ -28,10 +41,17 @@ export class User {
   public listeamis2: Listeamis[];
 
   @OneToMany(() => Partieuser, (partieuser) => partieuser.iduser2)
-  public partieuser: Partieuser[];
+  public partieusers: Partieuser[];
 
   @OneToMany(() => Score, (score) => score.iduser2)
-  public score: Score[];
+  public scores: Score[];
+
+  @ManyToOne(() => Avatar, (avatar) => avatar.users, {
+    onDelete: 'SET NULL',
+    onUpdate: 'SET NULL',
+  })
+  @JoinColumn([{ name: 'idavatar', referencedColumnName: 'id' }])
+  public idavatar2: Avatar;
 
   @Expose()
   get Username(): string {

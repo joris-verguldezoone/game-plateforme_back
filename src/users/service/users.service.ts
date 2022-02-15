@@ -11,8 +11,8 @@ export class UsersService {
     @InjectRepository(User) private readonly userRepository: Repository<User>
   ) { }
 
-  create(user: UserInterface): Observable<UserInterface> {
-    return from(this.userRepository.save(user));
+   create(user: User): Promise<User> {
+    return this.userRepository.save(user);
   }
 
   findAll(): Promise<User[]> {
@@ -35,12 +35,12 @@ export class UsersService {
   //   }));
   // }
 
-  update(id: number, user: UserInterface): Observable<any> {
-    return from(this.userRepository.update(id, user));
+  update(id: number, user: User): Promise<any> {
+    return this.userRepository.update(id, user);
 
   }
 
-  remove(id: number): Observable<any> {
-    return from(this.userRepository.delete(id));
+  remove(id: number): Promise<any> {
+    return this.userRepository.delete(id);
   }
 }

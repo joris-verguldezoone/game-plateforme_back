@@ -1,11 +1,16 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Put} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { PartieusersService } from '../service/partieusers.service';
-import { CreatePartieuserDto } from '../dto/create-partieuser.dto';
-import { UpdatePartieuserDto } from '../dto/update-partieuser.dto';
-import {ApiTags} from "@nestjs/swagger";
-import {UserInterface} from "../../users/model/user.interface";
-import {Observable} from "rxjs";
-import {PartieusersInterface} from "../model/partieusers.interface";
+import { ApiTags } from '@nestjs/swagger';
+import { Partieuser } from '../model/entities/partieuser.entity';
 
 @ApiTags('partie_user')
 @Controller('partieusers')
@@ -13,27 +18,30 @@ export class PartieusersController {
   constructor(private readonly partieusersService: PartieusersService) {}
 
   @Post()
-  create( @Body() partieuser: PartieusersInterface):Observable<PartieusersInterface> {
+  create(@Body() partieuser: Partieuser): Promise<Partieuser> {
     return this.partieusersService.create(partieuser);
   }
 
   @Get()
-  findAll(): Observable<PartieusersInterface[]> {
+  findAll(): Promise<Partieuser[]> {
     return this.partieusersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param() params): Observable<PartieusersInterface> {
+  findOne(@Param() params): Promise<Partieuser> {
     return this.partieusersService.findOne(params.id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() partieuser:PartieusersInterface ): Observable<any> {
+  update(
+    @Param('id') id: string,
+    @Body() partieuser: Partieuser,
+  ): Promise<any> {
     return this.partieusersService.update(+id, partieuser);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Observable<PartieusersInterface> {
+  remove(@Param('id') id: string): Promise<Partieuser> {
     return this.partieusersService.remove(Number(id));
   }
 }
