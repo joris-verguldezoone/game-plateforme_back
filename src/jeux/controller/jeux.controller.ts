@@ -1,11 +1,18 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Put} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { JeuxService } from '../service/jeux.service';
-import { CreateJeuxDto } from '../dto/create-jeux.dto';
-import { UpdateJeuxDto } from '../dto/update-jeux.dto';
-import {ApiTags} from "@nestjs/swagger";
-import {UserInterface} from "../../users/model/user.interface";
-import {Observable} from "rxjs";
-import {JeuxInterface} from "../model/jeux.interface";
+import { ApiTags } from '@nestjs/swagger';
+import { Observable } from 'rxjs';
+import { JeuxInterface } from '../model/jeux.interface';
+import { Jeux } from '../model/entities/jeux.entity';
 
 @ApiTags('jeux')
 @Controller('jeux')
@@ -13,27 +20,27 @@ export class JeuxController {
   constructor(private readonly jeuxService: JeuxService) {}
 
   @Post()
-  create( @Body() jeux: JeuxInterface):Observable<JeuxInterface> {
+  create(@Body() jeux: Jeux): Promise<Jeux> {
     return this.jeuxService.create(jeux);
   }
 
   @Get()
-  findAll(): Observable<JeuxInterface[]> {
+  findAll(): Promise<Jeux[]> {
     return this.jeuxService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param() params): Observable<JeuxInterface> {
+  findOne(@Param() params): Promise<Jeux> {
     return this.jeuxService.findOne(params.id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() jeux:JeuxInterface ): Observable<any> {
+  update(@Param('id') id: string, @Body() jeux: Jeux): Promise<any> {
     return this.jeuxService.update(+id, jeux);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Observable<JeuxInterface> {
+  remove(@Param('id') id: string): Promise<Jeux> {
     return this.jeuxService.remove(Number(id));
   }
 }

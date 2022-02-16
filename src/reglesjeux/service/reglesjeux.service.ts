@@ -12,27 +12,27 @@ import {ReglesjeuxInterface} from "../model/reglesjeux.interface";
 @Injectable()
 export class ReglesjeuxService {
   constructor(
-      @InjectRepository(Reglesjeux) private readonly reglesjeuxRepository: Repository<ReglesjeuxInterface>
+      @InjectRepository(Reglesjeux) private readonly reglesjeuxRepository: Repository<Reglesjeux>
   ){}
 
-  create(reglesjeux: ReglesjeuxInterface): Observable <ReglesjeuxInterface> {
-    return from(this.reglesjeuxRepository.save(reglesjeux));
+  create(reglesjeux: Reglesjeux): Promise <Reglesjeux> {
+    return this.reglesjeuxRepository.save(reglesjeux);
   }
 
-  findAll(): Observable <ReglesjeuxInterface[]> {
-    return from(this.reglesjeuxRepository.find());
+  findAll(): Promise <Reglesjeux[]> {
+    return this.reglesjeuxRepository.find();
   }
 
   findOne(id: number) {
-    return from(this.reglesjeuxRepository.findOne({id}));
+    return this.reglesjeuxRepository.findOne({id});
   }
 
-  update(id: number, reglesjeux:ReglesjeuxInterface): Observable<any> {
-    return from(this.reglesjeuxRepository.update(id, reglesjeux));
+  update(id: number, reglesjeux:Reglesjeux): Promise<any> {
+    return this.reglesjeuxRepository.update(id, reglesjeux);
 
   }
 
-  remove(id: number): Observable<any> {
-    return from(this.reglesjeuxRepository.delete(id));
+  remove(id: number): Promise<any> {
+    return this.reglesjeuxRepository.delete(id);
   }
 }

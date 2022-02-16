@@ -1,38 +1,44 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Put} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { TypesService } from '../service/types.service';
-import { CreateTypeDto } from '../dto/create-type.dto';
-import { UpdateTypeDto } from '../dto/update-type.dto';
-import {ApiTags} from "@nestjs/swagger";
-import {UserInterface} from "../../users/model/user.interface";
-import {Observable} from "rxjs";
-import {TypesInterface} from "../model/types.interface";
+import { ApiTags } from '@nestjs/swagger';
+import { Type } from '../model/entities/type.entity';
+
 @ApiTags('type')
 @Controller('types')
 export class TypesController {
   constructor(private readonly typesService: TypesService) {}
 
   @Post()
-  create( @Body() type: TypesInterface):Observable<TypesInterface> {
+  create(@Body() type: Type): Promise<Type> {
     return this.typesService.create(type);
   }
 
   @Get()
-  findAll(): Observable<TypesInterface[]> {
+  findAll(): Promise<Type[]> {
     return this.typesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param() params): Observable<TypesInterface> {
+  findOne(@Param() params): Promise<Type> {
     return this.typesService.findOne(params.id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() type:TypesInterface ): Observable<any> {
+  update(@Param('id') id: string, @Body() type: Type): Promise<any> {
     return this.typesService.update(+id, type);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Observable<UserInterface> {
+  remove(@Param('id') id: string): Promise<Type> {
     return this.typesService.remove(Number(id));
   }
 }

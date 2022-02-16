@@ -1,34 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {DifficulteInterface} from "../../difficulte/model/difficulte.interface";
-import {from, Observable} from "rxjs";
-import {Difficulte} from "../model/entities/difficulte.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Difficulte } from '../model/entities/difficulte.entity';
 
 @Injectable()
 export class DifficulteService {
-  constructor( @InjectRepository(Difficulte) private readonly difficulteRepository: Repository<DifficulteInterface>) {
+  constructor(
+    @InjectRepository(Difficulte)
+    private readonly difficulteRepository: Repository<Difficulte>,
+  ) {}
+
+  create(difficulte: Difficulte): Promise<Difficulte> {
+    return this.difficulteRepository.save(difficulte);
   }
 
+  findAll(): Promise<Difficulte[]> {
+    return this.difficulteRepository.find();
+  }
 
-create(difficulte: DifficulteInterface): Observable <DifficulteInterface> {
-  return from(this.difficulteRepository.save(difficulte));
-}
+  findOne(id: number) {
+    return this.difficulteRepository.findOne({ id });
+  }
 
-findAll(): Observable <DifficulteInterface[]> {
-  return from(this.difficulteRepository.find());
-}
+  update(id: number, difficulte: Difficulte): Promise<any> {
+    return this.difficulteRepository.update(id, difficulte);
+  }
 
-findOne(id: number) {
-  return from(this.difficulteRepository.findOne({id}));
-}
-
-update(id: number, difficulte:DifficulteInterface): Observable<any> {
-  return from(this.difficulteRepository.update(id, difficulte));
-
-}
-
-remove(id: number): Observable<any> {
-  return from(this.difficulteRepository.delete(id));
-}
+  remove(id: number): Promise<any> {
+    return this.difficulteRepository.delete(id);
+  }
 }

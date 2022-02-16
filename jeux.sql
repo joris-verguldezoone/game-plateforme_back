@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 21 jan. 2022 à 11:21
+-- Généré le : mer. 16 fév. 2022 à 08:26
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 7.4.25
 
@@ -33,16 +33,18 @@ CREATE TABLE IF NOT EXISTS `avatar` (
   `id` int(11) NOT NULL,
   `description` text NOT NULL,
   `image` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `iduser` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `iduser` (`iduser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `avatar`
 --
 
-INSERT INTO `avatar` (`id`, `description`, `image`) VALUES
-(1, 'test', 'test.png'),
-(2, 'caca', 'pipi.png');
+INSERT INTO `avatar` (`id`, `description`, `image`, `iduser`) VALUES
+(2, 'caca', 'pipi.png', 16),
+(3, 'photoprofil', 'mourad.png', 21);
 
 -- --------------------------------------------------------
 
@@ -78,13 +80,6 @@ CREATE TABLE IF NOT EXISTS `jeux` (
   KEY `idtype` (`idtype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `jeux`
---
-
-INSERT INTO `jeux` (`id`, `nom`, `idtype`) VALUES
-(1, 'chkobba', 8);
-
 -- --------------------------------------------------------
 
 --
@@ -100,14 +95,6 @@ CREATE TABLE IF NOT EXISTS `listeamis` (
   KEY `iduser2` (`iduser2`),
   KEY `iduser` (`iduser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `listeamis`
---
-
-INSERT INTO `listeamis` (`id`, `iduser`, `iduser2`, `statut`) VALUES
-(1, 10, 15, 0),
-(2, 10, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -127,14 +114,6 @@ CREATE TABLE IF NOT EXISTS `partie` (
   KEY `iddifficulte` (`iddifficulte`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `partie`
---
-
-INSERT INTO `partie` (`id`, `nbjoueurs`, `iddifficulte`, `idjeux`, `createdat`, `finishedat`) VALUES
-(1, 0, 11, 1, '2022-01-19 18:25:50', NULL),
-(2, 8, 11, 1, '2022-01-19 18:26:48', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -150,13 +129,6 @@ CREATE TABLE IF NOT EXISTS `partieuser` (
   KEY `idpartie` (`idpartie`),
   KEY `iduser` (`iduser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `partieuser`
---
-
-INSERT INTO `partieuser` (`id`, `iduser`, `idpartie`, `statut`) VALUES
-(1, 10, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -177,15 +149,6 @@ CREATE TABLE IF NOT EXISTS `reglesjeux` (
   KEY `idjeux` (`idjeux`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `reglesjeux`
---
-
-INSERT INTO `reglesjeux` (`id`, `idjeux`, `nomregle`, `regle`, `iddifficulte`, `nbjoueurmin`, `nbjoueurmax`) VALUES
-(1, 1, '2', '0', 11, 0, 0),
-(2, 1, '2', 'caca', 11, 0, 0),
-(3, 1, '2', 'pipi', 11, 4, 8);
-
 -- --------------------------------------------------------
 
 --
@@ -200,14 +163,7 @@ CREATE TABLE IF NOT EXISTS `score` (
   PRIMARY KEY (`id`),
   KEY `idpartie` (`idpartie`),
   KEY `iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `score`
---
-
-INSERT INTO `score` (`id`, `score`, `iduser`, `idpartie`) VALUES
-(1, 11, 10, 2);
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -222,15 +178,14 @@ CREATE TABLE IF NOT EXISTS `type` (
   `nbcartes` int(11) NOT NULL,
   `typedecarte` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `type`
 --
 
 INSERT INTO `type` (`id`, `typedejeux`, `nbdejeux`, `nbcartes`, `typedecarte`) VALUES
-(8, '', 0, 0, ''),
-(9, 'cartes', 2, 54, 'rami');
+(15, 'cartes', 2, 42, 'normal');
 
 -- --------------------------------------------------------
 
@@ -242,29 +197,38 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `id_avatar` int(11) DEFAULT NULL,
+  `idavatar` int(11) DEFAULT NULL,
   `role` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `id_avatar` (`idavatar`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `id_avatar`, `role`) VALUES
-(2, 'caca', 'caca', 1, 0),
-(3, 'nerner', '$2y$13$HIjo7RwB/k/t8cjXy2bywehh3E3J1hIMo.6z2rEm76VISxBFVD5Ly', NULL, 0),
+INSERT INTO `user` (`id`, `username`, `password`, `idavatar`, `role`) VALUES
+(2, 'caca', 'caca', NULL, 0),
+(3, 'nerner', '$2y$13$HIjo7RwB/k/t8cjXy2bywehh3E3J1hIMo.6z2rEm76VISxBFVD5Ly', 2, 0),
 (4, 'cacapipi', '$2y$13$Xk5DAJbdgeUIYNBo42lTket0we5Ekf4kw6p013RzaNzcciDSgSeES', NULL, 0),
-(5, 'pipicaca', '$2y$13$xFgMvh170OWREKnqDbsa7Of9DGKbLUqBTUXpLWkHKNaE64O9MLsy6', NULL, 0),
+(5, 'pipicaca', '$2y$13$xFgMvh170OWREKnqDbsa7Of9DGKbLUqBTUXpLWkHKNaE64O9MLsy6', 2, 0),
 (6, 'remyleboss', '$2y$13$MMWGXg/FOi/FWZASxwjjxOuPbaJYM2oxLlSfu5zQfZWjPT8tcGFUq', NULL, 0),
-(7, 'hardjojo', '$2y$13$dsWUUB3GBFhtzQr72e098ua6vsZmXUS6ds1Q9qgIpsmlx2lF518KW', NULL, 0),
+(7, 'hardjojo', '$2y$13$dsWUUB3GBFhtzQr72e098ua6vsZmXUS6ds1Q9qgIpsmlx2lF518KW', 2, 0),
 (8, 'hardjojom', '$2y$13$MQ687o1c7EXrkp32x7AU7emwerwBdl2crv3j7E4Tw/PDc6.GBCsxq', NULL, 0),
-(10, 'ruben', 'habib', 2, 1),
-(15, 'remyviscaino', 'viscaino', 1, 1);
+(10, 'lassal', 'shun', 2, 1),
+(15, 'remyviscaino', 'viscaino', NULL, 1),
+(16, 'manoo', 'manoo', NULL, 1),
+(21, 'lamoumou', 'larara', NULL, 0);
 
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `avatar`
+--
+ALTER TABLE `avatar`
+  ADD CONSTRAINT `FK_063060bf96f9322ae7b5499cdc5` FOREIGN KEY (`iduser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `jeux`
@@ -306,6 +270,12 @@ ALTER TABLE `reglesjeux`
 ALTER TABLE `score`
   ADD CONSTRAINT `FK_202e9ab0ba4dd16e923b4f0b251` FOREIGN KEY (`idpartie`) REFERENCES `partie` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_79484d806ae5491579152693caa` FOREIGN KEY (`iduser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `FK_3099249e365749099ebf7c6310c` FOREIGN KEY (`idavatar`) REFERENCES `avatar` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -25,7 +25,7 @@ export class Score {
     @Column("int", { name: "idpartie" })
     public idpartie: number;
 
-    @ManyToOne(() => User, (user) => user.score, {
+    @ManyToOne(() => User, (user) => user.scores, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     })

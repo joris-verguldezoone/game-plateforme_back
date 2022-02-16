@@ -18,7 +18,7 @@ export class Partieuser {
     @Column("int", { name: "statut" })
     public statut: number;
 
-    @ManyToOne(() => User, (user) => user.partieuser, {
+    @ManyToOne(() => User, (user) => user.partieusers, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     })

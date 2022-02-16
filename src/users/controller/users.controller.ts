@@ -24,7 +24,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post()
-  create(@Body() user: UserInterface): Observable<UserInterface> {
+  create(@Body() user: User): Promise<User> {
     return this.usersService.create(user);
   }
 
@@ -44,13 +44,13 @@ export class UsersController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() user: UserInterface,
-  ): Observable<any> {
+    @Body() user: User,
+  ): Promise<any> {
     return this.usersService.update(+id, user);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Observable<UserInterface> {
+  remove(@Param('id') id: string): Promise<User> {
     return this.usersService.remove(Number(id));
   }
 }

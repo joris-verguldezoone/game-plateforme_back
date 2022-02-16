@@ -1,38 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePartyDto } from '../dto/create-party.dto';
 import { UpdatePartyDto } from '../dto/update-party.dto';
-import {InjectRepository} from "@nestjs/typeorm";
-import {User} from "../../users/model/entities/user.entity";
-import {Repository} from "typeorm";
-import {UserInterface} from "../../users/model/user.interface";
-import {from, Observable} from "rxjs";
-import {Partie} from "../model/entities/party.entity";
-import {PartiesInterface} from "../model/parties.interface";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { from, Observable } from 'rxjs';
+import { Partie } from '../model/entities/party.entity';
+import { PartiesInterface } from '../model/parties.interface';
 
 @Injectable()
 export class PartiesService {
   constructor(
-      @InjectRepository(Partie) private readonly partieRepository: Repository<PartiesInterface>
-  ){}
+    @InjectRepository(Partie)
+    private readonly partieRepository: Repository<Partie>,
+  ) {}
 
-  create(partie: PartiesInterface): Observable <PartiesInterface> {
-    return from(this.partieRepository.save(partie));
+  create(partie: Partie): Promise<Partie> {
+    return this.partieRepository.save(partie);
   }
 
-  findAll(): Observable <PartiesInterface[]> {
-    return from(this.partieRepository.find());
+  findAll(): Promise<Partie[]> {
+    return this.partieRepository.find();
   }
 
   findOne(id: number) {
-    return from(this.partieRepository.findOne({id}));
+    return this.partieRepository.findOne({ id });
   }
 
-  update(id: number, partie:PartiesInterface): Observable<any> {
-    return from(this.partieRepository.update(id, partie));
-
+  update(id: number, partie: Partie): Promise<any> {
+    return this.partieRepository.update(id, partie);
   }
 
-  remove(id: number): Observable<any> {
-    return from(this.partieRepository.delete(id));
+  remove(id: number): Promise<any> {
+    return this.partieRepository.delete(id);
   }
 }
