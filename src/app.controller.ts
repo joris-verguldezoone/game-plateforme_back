@@ -21,6 +21,7 @@ export class AppController {
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
+
   }
 
 
