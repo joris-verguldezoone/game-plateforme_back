@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+
 @Controller()
 export class AppController {
   // @UseGuards(AuthGuard('local')) // Le auth Guard faisait bugger 
@@ -18,10 +19,9 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
+  @Get('auth/profile')
   getProfile(@Request() req) {
     return req.user;
-
   }
 
 
