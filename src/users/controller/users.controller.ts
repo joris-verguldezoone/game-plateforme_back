@@ -52,7 +52,6 @@ export class UsersController {
     console.log(update)
 
     return update
-
   }
 
   @Delete(':id')
