@@ -11,7 +11,6 @@ import {
 import { AvatarsService } from '../service/avatars.service';
 import { ApiTags } from '@nestjs/swagger';
 import { UserInterface } from '../../users/model/user.interface';
-import { Observable } from 'rxjs';
 import { AvatarInterface } from '../model/avatar.interface';
 import { Avatar } from '../model/entities/avatar.entity';
 
@@ -36,10 +35,7 @@ export class AvatarsController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() avatar: Avatar,
-  ): Promise<any> {
+  update(@Param('id') id: string, @Body() avatar: Avatar): Promise<any> {
     return this.avatarsService.update(+id, avatar);
   }
 

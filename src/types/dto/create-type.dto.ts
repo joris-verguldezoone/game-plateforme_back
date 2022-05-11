@@ -1,18 +1,27 @@
-import {ApiProperty} from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateTypeDto {
-    @ApiProperty()
-    id: number;
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty()
+  id: number;
 
-    @ApiProperty()
-    type_de_jeux?: string;
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  typedejeux: string;
 
-    @ApiProperty()
-    nb_de_jeux: number;
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty()
+  nbdejeux: number;
 
-    @ApiProperty()
-    nb_cartes:number;
+  @ApiProperty()
+  nbcartes: number;
 
-    @ApiProperty()
-    type_de_carte:string;
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  typedecarte: string;
 }

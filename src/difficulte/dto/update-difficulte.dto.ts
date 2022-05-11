@@ -1,4 +1,8 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateDifficulteDto } from './create-difficulte.dto';
 
-export class UpdateDifficulteDto extends PartialType(CreateDifficulteDto) {}
+export class UpdateDifficulteDto extends PartialType(CreateDifficulteDto) {
+  readonly id: number;
+  readonly difficulte: string;
+  readonly multiplicateurscore: number;
+}
