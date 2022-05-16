@@ -21,10 +21,10 @@ import { User } from '../model/entities/user.entity';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService) {}
 
   @Post()
-  create(@Body() user: User): Promise<User> {
+  create(@Body() user: CreateUserDto): Promise<UserInterface> {
     return this.usersService.create(user);
   }
 
@@ -42,16 +42,8 @@ export class UsersController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() user: User,
-  ): Promise<any> {
-    this.usersService.update(+id, user);
-    let update = await this.usersService.findOneName(user.username);
-    delete update.password
-    console.log(update)
-
-    return update
+  update(@Param('id') id: string, @Body() user: UpdateUserDto): Promise<any> {
+    return this.usersService.update(+id, user);
   }
 
   @Delete(':id')

@@ -17,7 +17,6 @@ export class CreateUserDto {
   @ApiProperty()
   password: string;
 
-  @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
   idavatar: number;
