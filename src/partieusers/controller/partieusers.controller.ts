@@ -7,10 +7,14 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { PartieusersService } from '../service/partieusers.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Partieuser } from '../model/entities/partieuser.entity';
+import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
+import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
+import { CreatePartieuserDto } from '../dto/create-partieuser.dto';
 
 @ApiTags('partie_user')
 @Controller('partieusers')
@@ -43,5 +47,16 @@ export class PartieusersController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<Partieuser> {
     return this.partieusersService.remove(Number(id));
+  }
+  @Get()
+  getTask(@Query() filterDto: CreatePartieuserDto): Promise<Partieuser[]> {
+    console.log(filterDto);
+    if (Object.keys(filterDto).length) {
+      console.log(filterDto);
+      return this.partieusersService.getPartieusersWithFilters(filterDto);
+    } else {
+      console.log('?????');
+      return this.partieusersService.findAll();
+    }
   }
 }

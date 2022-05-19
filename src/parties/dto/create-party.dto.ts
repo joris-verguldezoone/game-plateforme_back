@@ -30,5 +30,5 @@ export class CreatePartyDto {
   @IsNotEmpty()
   @IsDate()
   @ApiProperty()
-  finidhededat: Date;
+  finishedat: Date;
 }

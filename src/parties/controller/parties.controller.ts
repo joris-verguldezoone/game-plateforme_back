@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
-  Put,
+  Put, Query,
 } from '@nestjs/common';
 import { PartiesService } from '../service/parties.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Partie } from '../model/entities/party.entity';
+import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
+import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
+import {CreatePartyDto} from "../dto/create-party.dto";
 
 @ApiTags('parties')
 @Controller('parties')
@@ -40,5 +43,16 @@ export class PartiesController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<Partie> {
     return this.partiesService.remove(Number(id));
+  }
+  @Get()
+  getTask(@Query() filterDto: CreatePartyDto): Promise<Partie[]> {
+    console.log(filterDto);
+    if (Object.keys(filterDto).length) {
+      console.log(filterDto);
+      return this.partiesService.getPartiesWithFilters(filterDto);
+    } else {
+      console.log('?????');
+      return this.partiesService.findAll();
+    }
   }
 }

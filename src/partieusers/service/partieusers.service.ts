@@ -8,6 +8,8 @@ import { UserInterface } from '../../users/model/user.interface';
 import { from, Observable } from 'rxjs';
 import { Partieuser } from '../model/entities/partieuser.entity';
 import { PartieusersInterface } from '../model/partieusers.interface';
+import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
+import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 
 @Injectable()
 export class PartieusersService {
@@ -34,5 +36,24 @@ export class PartieusersService {
 
   remove(id: number): Promise<any> {
     return this.partieuserRepository.delete(id);
+  }
+  async getPartieusersWithFilters(
+    filterDto: CreatePartieuserDto,
+  ): Promise<Partieuser[]> {
+    console.log(filterDto);
+    const { iduser, idpartie, statut } = filterDto;
+
+    let reglesJeux = await this.findAll();
+
+    if (iduser) {
+      reglesJeux = reglesJeux.filter((task) => task.iduser == iduser);
+    }
+    if (idpartie) {
+      reglesJeux = reglesJeux.filter((task) => task.idpartie === idpartie);
+    }
+    if (statut) {
+      reglesJeux = reglesJeux.filter((task) => task.statut === statut);
+    }
+    return reglesJeux;
   }
 }

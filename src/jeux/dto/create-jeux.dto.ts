@@ -10,7 +10,7 @@ export class CreateJeuxDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
-  nom: number;
+  nom: string;
 
   @IsNotEmpty()
   @IsNumber()

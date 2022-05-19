@@ -3,6 +3,6 @@ import { CreateJeuxDto } from './create-jeux.dto';
 
 export class UpdateJeuxDto extends PartialType(CreateJeuxDto) {
   readonly id: number;
-  readonly nom: number;
+  readonly nom: string;
   readonly idtype: number;
 }

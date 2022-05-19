@@ -7,10 +7,14 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { TypesService } from '../service/types.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Type } from '../model/entities/type.entity';
+import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
+import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
+import { CreateTypeDto } from '../dto/create-type.dto';
 
 @ApiTags('type')
 @Controller('types')
@@ -40,5 +44,16 @@ export class TypesController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<Type> {
     return this.typesService.remove(Number(id));
+  }
+  @Get()
+  getTask(@Query() filterDto: CreateTypeDto): Promise<Type[]> {
+    console.log(filterDto);
+    if (Object.keys(filterDto).length) {
+      console.log(filterDto);
+      return this.typesService.getTypesWithFilters(filterDto);
+    } else {
+      console.log('?????');
+      return this.typesService.findAll();
+    }
   }
 }

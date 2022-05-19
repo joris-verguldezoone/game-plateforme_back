@@ -8,7 +8,7 @@ import {
   Delete,
   Res,
   HttpStatus,
-  Put,
+  Put, Query,
 } from '@nestjs/common';
 import { UsersService } from '../service/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -17,6 +17,8 @@ import { UserInterface } from '../model/user.interface';
 import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '../model/entities/user.entity';
+import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
+import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
 
 @ApiTags('users')
 @Controller('users')
@@ -49,5 +51,16 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<User> {
     return this.usersService.remove(Number(id));
+  }
+  @Get()
+  getTask(@Query() filterDto: CreateUserDto): Promise<User[]> {
+    console.log(filterDto);
+    if (Object.keys(filterDto).length) {
+      console.log(filterDto);
+      return this.usersService.getUsersWithFilters(filterDto);
+    } else {
+      console.log('?????');
+      return this.usersService.findAll();
+    }
   }
 }

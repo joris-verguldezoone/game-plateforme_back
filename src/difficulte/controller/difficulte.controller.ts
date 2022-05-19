@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  Put,
+  Put, Query,
 } from '@nestjs/common';
 import { DifficulteService } from '../service/difficulte.service';
 import { CreateDifficulteDto } from '../dto/create-difficulte.dto';
@@ -17,6 +17,8 @@ import { UserInterface } from '../../users/model/user.interface';
 import { Observable } from 'rxjs';
 import { DifficulteInterface } from '../model/difficulte.interface';
 import { Difficulte } from '../model/entities/difficulte.entity';
+import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
+import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
 
 @ApiTags('difficulte')
 @Controller('difficulte')
@@ -49,5 +51,16 @@ export class DifficulteController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<Difficulte> {
     return this.difficulteService.remove(Number(id));
+  }
+  @Get()
+  getTask(@Query() filterDto: CreateDifficulteDto): Promise<Difficulte[]> {
+    console.log(filterDto);
+    if (Object.keys(filterDto).length) {
+      console.log(filterDto);
+      return this.difficulteService.getDifficulteWithFilters(filterDto);
+    } else {
+      console.log('?????');
+      return this.difficulteService.findAll();
+    }
   }
 }

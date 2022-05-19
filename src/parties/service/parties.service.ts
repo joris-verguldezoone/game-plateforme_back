@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 import { from, Observable } from 'rxjs';
 import { Partie } from '../model/entities/party.entity';
 import { PartiesInterface } from '../model/parties.interface';
+import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
+import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 
 @Injectable()
 export class PartiesService {
@@ -32,5 +34,32 @@ export class PartiesService {
 
   remove(id: number): Promise<any> {
     return this.partieRepository.delete(id);
+  }
+  async getPartiesWithFilters(filterDto: CreatePartyDto): Promise<Partie[]> {
+    console.log(filterDto);
+    const { nbjoueurs, iddifficulte, idjeux, createdat, finishedat } =
+      filterDto;
+
+    let reglesJeux = await this.findAll();
+
+    if (idjeux) {
+      reglesJeux = reglesJeux.filter((task) => task.idjeux == idjeux);
+    }
+    if (nbjoueurs) {
+      reglesJeux = reglesJeux.filter((task) => task.nbjoueurs === nbjoueurs);
+    }
+    if (createdat) {
+      reglesJeux = reglesJeux.filter((task) => task.createdat == createdat);
+    }
+    if (iddifficulte) {
+      reglesJeux = reglesJeux.filter(
+        (task) => task.iddifficulte == iddifficulte,
+      );
+    }
+    if (finishedat) {
+      reglesJeux = reglesJeux.filter((task) => task.finishedat == finishedat);
+    }
+
+    return reglesJeux;
   }
 }

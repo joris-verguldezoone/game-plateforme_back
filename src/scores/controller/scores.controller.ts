@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  Put,
+  Put, Query,
 } from '@nestjs/common';
 import { ScoresService } from '../service/scores.service';
 import { CreateScoreDto } from '../dto/create-score.dto';
@@ -16,6 +16,8 @@ import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
 import { ScoresInterface } from '../model/scores.interface';
 import { Score } from '../model/entities/score.entity';
+import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
+import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
 @ApiTags('scores')
 @Controller('scores')
 export class ScoresController {
@@ -44,5 +46,16 @@ export class ScoresController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<Score> {
     return this.scoresService.remove(Number(id));
+  }
+  @Get()
+  getTask(@Query() filterDto: CreateScoreDto): Promise<Score[]> {
+    console.log(filterDto);
+    if (Object.keys(filterDto).length) {
+      console.log(filterDto);
+      return this.scoresService.getScoresWithFilters(filterDto);
+    } else {
+      console.log('?????');
+      return this.scoresService.findAll();
+    }
   }
 }

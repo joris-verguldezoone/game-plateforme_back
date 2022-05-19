@@ -4,8 +4,10 @@ import { UserInterface } from '../model/user.interface';
 import { Repository } from 'typeorm';
 
 import { User } from '../model/entities/user.entity';
-import {CreateUserDto} from "../dto/create-user.dto";
-import {UpdateUserDto} from "../dto/update-user.dto";
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
+import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 
 @Injectable()
 export class UsersService {
@@ -35,5 +37,24 @@ export class UsersService {
 
   remove(id: number): Promise<any> {
     return this.userRepository.delete(id);
+  }
+  async getUsersWithFilters(
+    filterDto: CreateUserDto,
+  ): Promise<User[]> {
+    console.log(filterDto);
+    const { username, idavatar, role } = filterDto;
+
+    let reglesJeux = await this.findAll();
+
+    if (username) {
+      reglesJeux = reglesJeux.filter((task) => task.username == username);
+    }
+    if (idavatar) {
+      reglesJeux = reglesJeux.filter((task) => task.idavatar == idavatar);
+    }
+    if (role) {
+      reglesJeux = reglesJeux.filter((task) => task.role === role);
+    }
+    return reglesJeux;
   }
 }

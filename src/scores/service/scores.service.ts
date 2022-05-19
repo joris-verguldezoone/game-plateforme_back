@@ -8,30 +8,51 @@ import { UserInterface } from '../../users/model/user.interface';
 import { from, Observable } from 'rxjs';
 import { Score } from '../model/entities/score.entity';
 import { ScoresInterface } from '../model/scores.interface';
+import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
+import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 
 @Injectable()
 export class ScoresService {
   constructor(
-    @InjectRepository(Score) private readonly userRepository: Repository<Score>,
+    @InjectRepository(Score)
+    private readonly scoreRepository: Repository<Score>,
   ) {}
 
   create(score: Score): Promise<Score> {
-    return this.userRepository.save(score);
+    return this.scoreRepository.save(score);
   }
 
   findAll(): Promise<Score[]> {
-    return this.userRepository.find();
+    return this.scoreRepository.find();
   }
 
   findOne(id: number) {
-    return this.userRepository.findOne({ id });
+    return this.scoreRepository.findOne({ id });
   }
 
   update(id: number, score: Score): Promise<any> {
-    return this.userRepository.update(id, score);
+    return this.scoreRepository.update(id, score);
   }
 
   remove(id: number): Promise<any> {
-    return this.userRepository.delete(id);
+    return this.scoreRepository.delete(id);
+  }
+  async getScoresWithFilters(filterDto: CreateScoreDto): Promise<Score[]> {
+    console.log(filterDto);
+    const { score, iduser, idpartie } =
+      filterDto;
+
+    let reglesJeux = await this.findAll();
+
+    if (score) {
+      reglesJeux = reglesJeux.filter((task) => task.score == score);
+    }
+    if (iduser) {
+      reglesJeux = reglesJeux.filter((task) => task.iduser === iduser);
+    }
+    if (idpartie) {
+      reglesJeux = reglesJeux.filter((task) => task.idpartie === idpartie);
+    }
+    return reglesJeux;
   }
 }
