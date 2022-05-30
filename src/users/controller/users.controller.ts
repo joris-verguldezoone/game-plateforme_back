@@ -8,7 +8,8 @@ import {
   Delete,
   Res,
   HttpStatus,
-  Put, Query,
+  Put,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from '../service/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -17,8 +18,9 @@ import { UserInterface } from '../model/user.interface';
 import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '../model/entities/user.entity';
-import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
-import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
+import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
+import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
+import { GetUserDto } from '../dto/get-user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -29,7 +31,16 @@ export class UsersController {
   create(@Body() user: CreateUserDto): Promise<UserInterface> {
     return this.usersService.create(user);
   }
-
+  @Get()
+  getTask(@Query() filterDto: GetUserDto): Promise<User[]> {
+    if (Object.keys(filterDto).length) {
+      console.log(filterDto);
+      return this.usersService.getUsersWithFilters(filterDto);
+    } else {
+      console.log('?????');
+      return this.usersService.findAll();
+    }
+  }
   @Get()
   findAll(): Promise<User[]> {
     return this.usersService.findAll();
@@ -51,16 +62,5 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<User> {
     return this.usersService.remove(Number(id));
-  }
-  @Get()
-  getTask(@Query() filterDto: CreateUserDto): Promise<User[]> {
-    console.log(filterDto);
-    if (Object.keys(filterDto).length) {
-      console.log(filterDto);
-      return this.usersService.getUsersWithFilters(filterDto);
-    } else {
-      console.log('?????');
-      return this.usersService.findAll();
-    }
   }
 }

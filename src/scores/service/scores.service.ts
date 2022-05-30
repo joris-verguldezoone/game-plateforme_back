@@ -18,7 +18,7 @@ export class ScoresService {
     private readonly scoreRepository: Repository<Score>,
   ) {}
 
-  create(score: Score): Promise<Score> {
+  create(score: CreateScoreDto): Promise<ScoresInterface> {
     return this.scoreRepository.save(score);
   }
 
@@ -30,7 +30,7 @@ export class ScoresService {
     return this.scoreRepository.findOne({ id });
   }
 
-  update(id: number, score: Score): Promise<any> {
+  update(id: number, score: UpdateScoreDto): Promise<any> {
     return this.scoreRepository.update(id, score);
   }
 

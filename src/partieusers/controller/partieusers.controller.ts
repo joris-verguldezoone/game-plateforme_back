@@ -15,6 +15,8 @@ import { Partieuser } from '../model/entities/partieuser.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreatePartieuserDto } from '../dto/create-partieuser.dto';
+import {PartieusersInterface} from "../model/partieusers.interface";
+import {UpdatePartieuserDto} from "../dto/update-partieuser.dto";
 
 @ApiTags('partie_user')
 @Controller('partieusers')
@@ -22,7 +24,7 @@ export class PartieusersController {
   constructor(private readonly partieusersService: PartieusersService) {}
 
   @Post()
-  create(@Body() partieuser: Partieuser): Promise<Partieuser> {
+  create(@Body() partieuser: CreatePartieuserDto): Promise<PartieusersInterface> {
     return this.partieusersService.create(partieuser);
   }
 
@@ -39,7 +41,7 @@ export class PartieusersController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() partieuser: Partieuser,
+    @Body() partieuser: UpdatePartieuserDto,
   ): Promise<any> {
     return this.partieusersService.update(+id, partieuser);
   }

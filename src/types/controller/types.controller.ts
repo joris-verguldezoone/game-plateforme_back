@@ -15,6 +15,8 @@ import { Type } from '../model/entities/type.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateTypeDto } from '../dto/create-type.dto';
+import {TypesInterface} from "../model/types.interface";
+import {UpdateTypeDto} from "../dto/update-type.dto";
 
 @ApiTags('type')
 @Controller('types')
@@ -22,7 +24,7 @@ export class TypesController {
   constructor(private readonly typesService: TypesService) {}
 
   @Post()
-  create(@Body() type: Type): Promise<Type> {
+  create(@Body() type: CreateTypeDto): Promise<TypesInterface> {
     return this.typesService.create(type);
   }
 
@@ -37,7 +39,7 @@ export class TypesController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() type: Type): Promise<any> {
+  update(@Param('id') id: string, @Body() type: UpdateTypeDto): Promise<any> {
     return this.typesService.update(+id, type);
   }
 

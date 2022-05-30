@@ -15,6 +15,8 @@ import { Reglesjeux } from '../model/entities/reglesjeux.entity';
 import { GetReglesjeuxDto } from '../dto/get-reglesjeux.dto';
 import {UpdateReglesjeuxDto} from "../dto/update-reglesjeux.dto";
 import {CreateReglesjeuxDto} from "../dto/create-reglesjeux.dto";
+import {ReglesjeuxInterface} from "../model/reglesjeux.interface";
+import {GetUserDto} from "../../users/dto/get-user.dto";
 
 @ApiTags('regles_jeux')
 @Controller('reglesjeux')
@@ -22,26 +24,13 @@ export class ReglesjeuxController {
   constructor(private readonly reglesjeuxService: ReglesjeuxService) {}
 
   @Post()
-  create(@Body() reglesjeux: Reglesjeux): Promise<Reglesjeux> {
+  create(@Body() reglesjeux: CreateReglesjeuxDto): Promise<ReglesjeuxInterface> {
     return this.reglesjeuxService.create(reglesjeux);
   }
 
-  // @Get()
-  // findAll(): Promise<Reglesjeux[]> {
-  //   return this.reglesjeuxService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param() params): Promise<Reglesjeux> {
-  //   return this.reglesjeuxService.findOne(params.id);
-  // }
-  // test
-
   @Get()
-  getTask(@Query() filterDto: CreateReglesjeuxDto): Promise<Reglesjeux[]> {
-    console.log(filterDto);
+  getTask(@Query() filterDto: GetReglesjeuxDto): Promise<Reglesjeux[]> {
     if (Object.keys(filterDto).length) {
-      console.log(filterDto);
       return this.reglesjeuxService.getGameRulesWithFilters(filterDto);
     } else {
       console.log('?????');
@@ -61,7 +50,7 @@ export class ReglesjeuxController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() reglesjeux: Reglesjeux,
+    @Body() reglesjeux: UpdateReglesjeuxDto,
   ): Promise<any> {
     return this.reglesjeuxService.update(+id, reglesjeux);
   }

@@ -17,7 +17,7 @@ export class TypesService {
     @InjectRepository(Type) private readonly typeRepository: Repository<Type>,
   ) {}
 
-  create(type: Type): Promise<Type> {
+  create(type: CreateTypeDto): Promise<TypesInterface> {
     return this.typeRepository.save(type);
   }
 
@@ -29,7 +29,7 @@ export class TypesService {
     return this.typeRepository.findOne({ id });
   }
 
-  update(id: number, type: Type): Promise<any> {
+  update(id: number, type: UpdateTypeDto): Promise<any> {
     return this.typeRepository.update(id, type);
   }
 

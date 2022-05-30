@@ -8,6 +8,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
+import { GetUserDto } from '../dto/get-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,7 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
+    console.log("caca");
     return this.userRepository.find();
   }
 
@@ -38,9 +40,7 @@ export class UsersService {
   remove(id: number): Promise<any> {
     return this.userRepository.delete(id);
   }
-  async getUsersWithFilters(
-    filterDto: CreateUserDto,
-  ): Promise<User[]> {
+  async getUsersWithFilters(filterDto: GetUserDto): Promise<User[]> {
     console.log(filterDto);
     const { username, idavatar, role } = filterDto;
 
@@ -48,6 +48,7 @@ export class UsersService {
 
     if (username) {
       reglesJeux = reglesJeux.filter((task) => task.username == username);
+      console.log(reglesJeux);
     }
     if (idavatar) {
       reglesJeux = reglesJeux.filter((task) => task.idavatar == idavatar);

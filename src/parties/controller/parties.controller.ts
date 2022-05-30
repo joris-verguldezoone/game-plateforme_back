@@ -14,6 +14,8 @@ import { Partie } from '../model/entities/party.entity';
 import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
 import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
 import {CreatePartyDto} from "../dto/create-party.dto";
+import {PartiesInterface} from "../model/parties.interface";
+import {UpdatePartyDto} from "../dto/update-party.dto";
 
 @ApiTags('parties')
 @Controller('parties')
@@ -21,7 +23,7 @@ export class PartiesController {
   constructor(private readonly partiesService: PartiesService) {}
 
   @Post()
-  create(@Body() partie: Partie): Promise<Partie> {
+  create(@Body() partie: CreatePartyDto): Promise<PartiesInterface> {
     return this.partiesService.create(partie);
   }
 
@@ -36,7 +38,7 @@ export class PartiesController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() user: Partie): Promise<any> {
+  update(@Param('id') id: string, @Body() user: UpdatePartyDto): Promise<any> {
     return this.partiesService.update(+id, user);
   }
 

@@ -4,6 +4,9 @@ import { UpdateReglesjeuxDto } from '../dto/update-reglesjeux.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Reglesjeux } from '../model/entities/reglesjeux.entity';
+import { ReglesjeuxInterface } from '../model/reglesjeux.interface';
+import {GetUserDto} from "../../users/dto/get-user.dto";
+import {GetReglesjeuxDto} from "../dto/get-reglesjeux.dto";
 
 @Injectable()
 export class ReglesjeuxService {
@@ -12,7 +15,7 @@ export class ReglesjeuxService {
     private readonly reglesjeuxRepository: Repository<Reglesjeux>,
   ) {}
 
-  create(reglesjeux: Reglesjeux): Promise<Reglesjeux> {
+  create(reglesjeux: CreateReglesjeuxDto): Promise<ReglesjeuxInterface> {
     return this.reglesjeuxRepository.save(reglesjeux);
   }
 
@@ -21,16 +24,18 @@ export class ReglesjeuxService {
     return this.reglesjeuxRepository.find();
   }
   async getGameRulesWithFilters(
-    filterDto: CreateReglesjeuxDto,
+    filterDto: GetReglesjeuxDto,
   ): Promise<Reglesjeux[]> {
     console.log(filterDto);
     const { idjeux, nomregle, regle, iddifficulte, nbjoueurmin, nbjoueurmax } =
       filterDto;
 
     let reglesJeux = await this.findAll();
-
+    console.log(filterDto);
     if (idjeux) {
+
       reglesJeux = reglesJeux.filter((task) => task.idjeux == idjeux);
+
     }
     if (nomregle) {
       reglesJeux = reglesJeux.filter((task) => task.nomregle === nomregle);

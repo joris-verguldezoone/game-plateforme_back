@@ -24,7 +24,7 @@ export class ScoresController {
   constructor(private readonly scoresService: ScoresService) {}
 
   @Post()
-  create(@Body() score: Score): Promise<Score> {
+  create(@Body() score: CreateScoreDto): Promise<ScoresInterface> {
     return this.scoresService.create(score);
   }
 
@@ -39,7 +39,7 @@ export class ScoresController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() score: Score): Promise<any> {
+  update(@Param('id') id: string, @Body() score: UpdateScoreDto): Promise<any> {
     return this.scoresService.update(+id, score);
   }
 

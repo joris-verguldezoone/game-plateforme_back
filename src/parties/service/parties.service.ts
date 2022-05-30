@@ -16,7 +16,7 @@ export class PartiesService {
     private readonly partieRepository: Repository<Partie>,
   ) {}
 
-  create(partie: Partie): Promise<Partie> {
+  create(partie: CreatePartyDto): Promise<PartiesInterface> {
     return this.partieRepository.save(partie);
   }
 
@@ -28,7 +28,7 @@ export class PartiesService {
     return this.partieRepository.findOne({ id });
   }
 
-  update(id: number, partie: Partie): Promise<any> {
+  update(id: number, partie: UpdatePartyDto): Promise<any> {
     return this.partieRepository.update(id, partie);
   }
 

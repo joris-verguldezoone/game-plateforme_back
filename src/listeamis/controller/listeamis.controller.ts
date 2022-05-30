@@ -17,13 +17,15 @@ import { Listeamis } from '../model/entities/listeami.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateListeamiDto } from '../dto/create-listeami.dto';
+import {ListeamisInterface} from "../model/listeamis.interface";
+import {UpdateListeamiDto} from "../dto/update-listeami.dto";
 
 @ApiTags('liste_amis')
 @Controller('listeamis')
 export class ListeamisController {
   constructor(private readonly listeamisService: ListeamisService) {}
   @Post()
-  create(@Body() listeamis: Listeamis): Promise<Listeamis> {
+  create(@Body() listeamis: CreateListeamiDto): Promise<ListeamisInterface> {
     return this.listeamisService.create(listeamis);
   }
 
@@ -38,7 +40,7 @@ export class ListeamisController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() listeamis: Listeamis): Promise<any> {
+  update(@Param('id') id: string, @Body() listeamis: UpdateListeamiDto): Promise<any> {
     return this.listeamisService.update(+id, listeamis);
   }
 

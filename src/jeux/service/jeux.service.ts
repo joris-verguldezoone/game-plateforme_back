@@ -6,6 +6,9 @@ import { Jeux } from '../model/entities/jeux.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateJeuxDto } from '../dto/create-jeux.dto';
+import {JeuxInterface} from "../model/jeux.interface";
+import {UpdateJeuxDto} from "../dto/update-jeux.dto";
+import {GetJeuxDto} from "../dto/get-jeux.dto";
 
 @Injectable()
 export class JeuxService {
@@ -13,7 +16,7 @@ export class JeuxService {
     @InjectRepository(Jeux) private readonly jeuxRepository: Repository<Jeux>,
   ) {}
 
-  create(jeux: Jeux): Promise<Jeux> {
+  create(jeux: CreateJeuxDto): Promise<JeuxInterface> {
     return this.jeuxRepository.save(jeux);
   }
 
@@ -25,15 +28,15 @@ export class JeuxService {
     return this.jeuxRepository.findOne({ id });
   }
 
-  update(id: number, jeux: Jeux): Promise<any> {
+  update(id: number, jeux: UpdateJeuxDto): Promise<any> {
     return this.jeuxRepository.update(id, jeux);
   }
 
   remove(id: number): Promise<any> {
     return this.jeuxRepository.delete(id);
   }
-  async getGamesWithFilters(filterDto: CreateJeuxDto): Promise<Jeux[]> {
-    console.log(filterDto);
+  async getGamesWithFilters(filterDto: GetJeuxDto): Promise<Jeux[]> {
+
     const { nom, idtype } = filterDto;
 
     let reglesJeux = await this.findAll();

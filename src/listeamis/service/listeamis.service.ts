@@ -5,6 +5,8 @@ import { Listeamis } from '../model/entities/listeami.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateListeamiDto } from '../dto/create-listeami.dto';
+import {ListeamisInterface} from "../model/listeamis.interface";
+import {UpdateListeamiDto} from "../dto/update-listeami.dto";
 
 @Injectable()
 export class ListeamisService {
@@ -13,7 +15,7 @@ export class ListeamisService {
     private readonly listeamisRepository: Repository<Listeamis>,
   ) {}
 
-  create(listeamis: Listeamis): Promise<Listeamis> {
+  create(listeamis: CreateListeamiDto): Promise<ListeamisInterface> {
     return this.listeamisRepository.save(listeamis);
   }
 
@@ -25,7 +27,7 @@ export class ListeamisService {
     return this.listeamisRepository.findOne({ id });
   }
 
-  update(id: number, listeamis: Listeamis): Promise<any> {
+  update(id: number, listeamis: UpdateListeamiDto): Promise<any> {
     return this.listeamisRepository.update(id, listeamis);
   }
 
