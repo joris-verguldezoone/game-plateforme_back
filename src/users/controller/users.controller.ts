@@ -22,36 +22,25 @@ import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto'
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { GetUserDto } from '../dto/get-user.dto';
 
-@ApiTags('users')
 @Controller('users')
+@ApiTags('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService) { }
 
   @Post()
   create(@Body() user: CreateUserDto): Promise<UserInterface> {
     return this.usersService.create(user);
   }
-  @Get()
+  @Get('find')
   getTask(@Query() filterDto: GetUserDto): Promise<User[]> {
+    console.log('filterDto');
+    console.log(filterDto);
     if (Object.keys(filterDto).length) {
-      console.log(filterDto);
       return this.usersService.getUsersWithFilters(filterDto);
     } else {
-      console.log('?????');
+      console.log('else');
       return this.usersService.findAll();
     }
-  }
-  @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
-  }
-  @Get('findusers/:username')
-  findOneName(@Param() params): Promise<User> {
-    return this.usersService.findOneName(params.username);
-  }
-  @Get(':id')
-  findOne(@Param() params): Promise<User> {
-    return this.usersService.findOne(params.id);
   }
 
   @Put(':id')

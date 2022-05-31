@@ -14,7 +14,7 @@ import { GetUserDto } from '../dto/get-user.dto';
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   create(user: CreateUserDto): Promise<UserInterface> {
     return this.userRepository.save(user);
@@ -23,10 +23,6 @@ export class UsersService {
   findAll(): Promise<User[]> {
     console.log("caca");
     return this.userRepository.find();
-  }
-
-  findOne(id: number): Promise<User> {
-    return this.userRepository.findOne({ id });
   }
 
   findOneName(username: string): Promise<User> {
@@ -42,20 +38,24 @@ export class UsersService {
   }
   async getUsersWithFilters(filterDto: GetUserDto): Promise<User[]> {
     console.log(filterDto);
-    const { username, idavatar, role } = filterDto;
+    console.log('zoulette');
+    const { id, username, idavatar, role } = filterDto;
 
-    let reglesJeux = await this.findAll();
+    let allUsers = await this.findAll();
 
+    if (id) {
+      allUsers = allUsers.filter((task) => task.id == id)
+    }
     if (username) {
-      reglesJeux = reglesJeux.filter((task) => task.username == username);
-      console.log(reglesJeux);
+      allUsers = allUsers.filter((task) => task.username == username);
+      console.log(allUsers);
     }
     if (idavatar) {
-      reglesJeux = reglesJeux.filter((task) => task.idavatar == idavatar);
+      allUsers = allUsers.filter((task) => task.idavatar == idavatar);
     }
     if (role) {
-      reglesJeux = reglesJeux.filter((task) => task.role === role);
+      allUsers = allUsers.filter((task) => task.role === role);
     }
-    return reglesJeux;
+    return allUsers;
   }
 }

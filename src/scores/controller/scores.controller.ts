@@ -16,26 +16,16 @@ import { Observable } from 'rxjs';
 import { ApiTags } from '@nestjs/swagger';
 import { ScoresInterface } from '../model/scores.interface';
 import { Score } from '../model/entities/score.entity';
-import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
-import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
+import { CreateReglesjeuxDto } from "../../reglesjeux/dto/create-reglesjeux.dto";
+import { Reglesjeux } from "../../reglesjeux/model/entities/reglesjeux.entity";
 @ApiTags('scores')
 @Controller('scores')
 export class ScoresController {
-  constructor(private readonly scoresService: ScoresService) {}
+  constructor(private readonly scoresService: ScoresService) { }
 
   @Post()
   create(@Body() score: CreateScoreDto): Promise<ScoresInterface> {
     return this.scoresService.create(score);
-  }
-
-  @Get()
-  findAll(): Promise<Score[]> {
-    return this.scoresService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param() params): Promise<Score> {
-    return this.scoresService.findOne(params.id);
   }
 
   @Put(':id')
@@ -47,7 +37,7 @@ export class ScoresController {
   remove(@Param('id') id: string): Promise<Score> {
     return this.scoresService.remove(Number(id));
   }
-  @Get()
+  @Get('find')
   getTask(@Query() filterDto: CreateScoreDto): Promise<Score[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {

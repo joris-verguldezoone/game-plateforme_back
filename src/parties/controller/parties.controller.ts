@@ -11,30 +11,20 @@ import {
 import { PartiesService } from '../service/parties.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Partie } from '../model/entities/party.entity';
-import {CreateReglesjeuxDto} from "../../reglesjeux/dto/create-reglesjeux.dto";
-import {Reglesjeux} from "../../reglesjeux/model/entities/reglesjeux.entity";
-import {CreatePartyDto} from "../dto/create-party.dto";
-import {PartiesInterface} from "../model/parties.interface";
-import {UpdatePartyDto} from "../dto/update-party.dto";
+import { CreateReglesjeuxDto } from "../../reglesjeux/dto/create-reglesjeux.dto";
+import { Reglesjeux } from "../../reglesjeux/model/entities/reglesjeux.entity";
+import { CreatePartyDto } from "../dto/create-party.dto";
+import { PartiesInterface } from "../model/parties.interface";
+import { UpdatePartyDto } from "../dto/update-party.dto";
 
 @ApiTags('parties')
 @Controller('parties')
 export class PartiesController {
-  constructor(private readonly partiesService: PartiesService) {}
+  constructor(private readonly partiesService: PartiesService) { }
 
   @Post()
   create(@Body() partie: CreatePartyDto): Promise<PartiesInterface> {
     return this.partiesService.create(partie);
-  }
-
-  @Get()
-  findAll(): Promise<Partie[]> {
-    return this.partiesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param() params): Promise<Partie> {
-    return this.partiesService.findOne(params.id);
   }
 
   @Put(':id')
@@ -46,7 +36,7 @@ export class PartiesController {
   remove(@Param('id') id: string): Promise<Partie> {
     return this.partiesService.remove(Number(id));
   }
-  @Get()
+  @Get('find')
   getTask(@Query() filterDto: CreatePartyDto): Promise<Partie[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {

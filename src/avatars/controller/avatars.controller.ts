@@ -20,13 +20,13 @@ import { GetAvatarsDto } from '../dto/get-avatars.dto';
 @ApiTags('avatar')
 @Controller('avatars')
 export class AvatarsController {
-  constructor(private readonly avatarsService: AvatarsService) {}
+  constructor(private readonly avatarsService: AvatarsService) { }
 
   @Post()
   create(@Body() avatar: CreateAvatarDto): Promise<AvatarInterface> {
     return this.avatarsService.create(avatar);
   }
-  @Get()
+  @Get('find')
   getTask(@Query() filterDto: GetAvatarsDto): Promise<Avatar[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {
@@ -37,10 +37,7 @@ export class AvatarsController {
       return this.avatarsService.findAll();
     }
   }
-  @Get(':id')
-  findOne(@Param() params): Promise<Avatar> {
-    return this.avatarsService.findOne(params.id);
-  }
+
 
   @Put(':id')
   update(

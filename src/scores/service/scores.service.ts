@@ -16,7 +16,7 @@ export class ScoresService {
   constructor(
     @InjectRepository(Score)
     private readonly scoreRepository: Repository<Score>,
-  ) {}
+  ) { }
 
   create(score: CreateScoreDto): Promise<ScoresInterface> {
     return this.scoreRepository.save(score);
@@ -26,9 +26,6 @@ export class ScoresService {
     return this.scoreRepository.find();
   }
 
-  findOne(id: number) {
-    return this.scoreRepository.findOne({ id });
-  }
 
   update(id: number, score: UpdateScoreDto): Promise<any> {
     return this.scoreRepository.update(id, score);
@@ -39,20 +36,23 @@ export class ScoresService {
   }
   async getScoresWithFilters(filterDto: CreateScoreDto): Promise<Score[]> {
     console.log(filterDto);
-    const { score, iduser, idpartie } =
+    const { score, iduser, idpartie, id } =
       filterDto;
 
-    let reglesJeux = await this.findAll();
+    let scoreTable = await this.findAll();
 
+    if (id) {
+      scoreTable = scoreTable.filter((task) => task.id == id);
+    }
     if (score) {
-      reglesJeux = reglesJeux.filter((task) => task.score == score);
+      scoreTable = scoreTable.filter((task) => task.score == score);
     }
     if (iduser) {
-      reglesJeux = reglesJeux.filter((task) => task.iduser === iduser);
+      scoreTable = scoreTable.filter((task) => task.iduser === iduser);
     }
     if (idpartie) {
-      reglesJeux = reglesJeux.filter((task) => task.idpartie === idpartie);
+      scoreTable = scoreTable.filter((task) => task.idpartie === idpartie);
     }
-    return reglesJeux;
+    return scoreTable;
   }
 }

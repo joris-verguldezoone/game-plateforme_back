@@ -6,15 +6,15 @@ import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto'
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateDifficulteDto } from '../dto/create-difficulte.dto';
 import { DifficulteInterface } from '../model/difficulte.interface';
-import {UpdateDifficulteDto} from "../dto/update-difficulte.dto";
-import {GetDifficulteDto} from "../dto/get-difficulte.dto";
+import { UpdateDifficulteDto } from "../dto/update-difficulte.dto";
+import { GetDifficulteDto } from "../dto/get-difficulte.dto";
 
 @Injectable()
 export class DifficulteService {
   constructor(
     @InjectRepository(Difficulte)
     private readonly difficulteRepository: Repository<Difficulte>,
-  ) {}
+  ) { }
 
   create(difficulte: CreateDifficulteDto): Promise<DifficulteInterface> {
     return this.difficulteRepository.save(difficulte);
@@ -38,18 +38,22 @@ export class DifficulteService {
   async getDifficulteWithFilters(
     filterDto: GetDifficulteDto,
   ): Promise<Difficulte[]> {
-    const { difficulte, multiplicateurscore } = filterDto;
 
-    let reglesJeux = await this.findAll();
+    const { difficulte, multiplicateurscore, id } = filterDto;
 
+    let difficulties = await this.findAll();
+
+    if (id) {
+      difficulties = difficulties.filter((task) => task.id === id);
+    }
     if (difficulte) {
-      reglesJeux = reglesJeux.filter((task) => task.difficulte === difficulte);
+      difficulties = difficulties.filter((task) => task.difficulte === difficulte);
     }
     if (multiplicateurscore) {
-      reglesJeux = reglesJeux.filter(
+      difficulties = difficulties.filter(
         (task) => task.multiplicateurscore == multiplicateurscore,
       );
     }
-    return reglesJeux;
+    return difficulties;
   }
 }

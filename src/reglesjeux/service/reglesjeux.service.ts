@@ -5,15 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Reglesjeux } from '../model/entities/reglesjeux.entity';
 import { ReglesjeuxInterface } from '../model/reglesjeux.interface';
-import {GetUserDto} from "../../users/dto/get-user.dto";
-import {GetReglesjeuxDto} from "../dto/get-reglesjeux.dto";
+import { GetReglesjeuxDto } from "../dto/get-reglesjeux.dto";
 
 @Injectable()
 export class ReglesjeuxService {
   constructor(
     @InjectRepository(Reglesjeux)
     private readonly reglesjeuxRepository: Repository<Reglesjeux>,
-  ) {}
+  ) { }
 
   create(reglesjeux: CreateReglesjeuxDto): Promise<ReglesjeuxInterface> {
     return this.reglesjeuxRepository.save(reglesjeux);
@@ -27,15 +26,16 @@ export class ReglesjeuxService {
     filterDto: GetReglesjeuxDto,
   ): Promise<Reglesjeux[]> {
     console.log(filterDto);
-    const { idjeux, nomregle, regle, iddifficulte, nbjoueurmin, nbjoueurmax } =
+    const { idjeux, nomregle, regle, iddifficulte, nbjoueurmin, nbjoueurmax, id } =
       filterDto;
 
     let reglesJeux = await this.findAll();
     console.log(filterDto);
+    if (id) {
+      reglesJeux = reglesJeux.filter((task) => task.id == id);
+    }
     if (idjeux) {
-
       reglesJeux = reglesJeux.filter((task) => task.idjeux == idjeux);
-
     }
     if (nomregle) {
       reglesJeux = reglesJeux.filter((task) => task.nomregle === nomregle);
@@ -55,10 +55,6 @@ export class ReglesjeuxService {
       reglesJeux = reglesJeux.filter((task) => task.nbjoueurmin == nbjoueurmax);
     }
     return reglesJeux;
-  }
-
-  findOne(id: number) {
-    return this.reglesjeuxRepository.findOne({ id });
   }
 
   update(id: number, reglesjeux: UpdateReglesjeuxDto): Promise<any> {

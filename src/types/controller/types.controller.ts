@@ -15,27 +15,17 @@ import { Type } from '../model/entities/type.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateTypeDto } from '../dto/create-type.dto';
-import {TypesInterface} from "../model/types.interface";
-import {UpdateTypeDto} from "../dto/update-type.dto";
+import { TypesInterface } from "../model/types.interface";
+import { UpdateTypeDto } from "../dto/update-type.dto";
 
 @ApiTags('type')
 @Controller('types')
 export class TypesController {
-  constructor(private readonly typesService: TypesService) {}
+  constructor(private readonly typesService: TypesService) { }
 
   @Post()
   create(@Body() type: CreateTypeDto): Promise<TypesInterface> {
     return this.typesService.create(type);
-  }
-
-  @Get()
-  findAll(): Promise<Type[]> {
-    return this.typesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param() params): Promise<Type> {
-    return this.typesService.findOne(params.id);
   }
 
   @Put(':id')
@@ -47,7 +37,7 @@ export class TypesController {
   remove(@Param('id') id: string): Promise<Type> {
     return this.typesService.remove(Number(id));
   }
-  @Get()
+  @Get('find')
   getTask(@Query() filterDto: CreateTypeDto): Promise<Type[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {

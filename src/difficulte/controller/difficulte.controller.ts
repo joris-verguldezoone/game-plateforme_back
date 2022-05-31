@@ -26,7 +26,7 @@ import { GetDifficulteDto } from '../dto/get-difficulte.dto';
 @ApiTags('difficulte')
 @Controller('difficulte')
 export class DifficulteController {
-  constructor(private readonly difficulteService: DifficulteService) {}
+  constructor(private readonly difficulteService: DifficulteService) { }
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -34,16 +34,6 @@ export class DifficulteController {
     @Body() difficulte: CreateDifficulteDto,
   ): Promise<DifficulteInterface> {
     return this.difficulteService.create(difficulte);
-  }
-
-  // @Get(':id')
-  // findOne(@Param() params): Promise<Difficulte> {
-  //   return this.difficulteService.findOne(params.id);
-  // }
-
-  @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.difficulteService.findOne(id);
   }
 
   @Put(':id')
@@ -58,7 +48,7 @@ export class DifficulteController {
   remove(@Param('id') id: string): Promise<Difficulte> {
     return this.difficulteService.remove(Number(id));
   }
-  @Get()
+  @Get('find')
 
   getTask(@Query() filterDto: GetDifficulteDto): Promise<Difficulte[]> {
     console.log(filterDto);
@@ -66,7 +56,7 @@ export class DifficulteController {
       console.log(filterDto);
       return this.difficulteService.getDifficulteWithFilters(filterDto);
     } else {
-      console.log('?????');
+      console.log('else');
       return this.difficulteService.findAll();
     }
   }

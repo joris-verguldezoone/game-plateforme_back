@@ -14,7 +14,7 @@ export class PartiesService {
   constructor(
     @InjectRepository(Partie)
     private readonly partieRepository: Repository<Partie>,
-  ) {}
+  ) { }
 
   create(partie: CreatePartyDto): Promise<PartiesInterface> {
     return this.partieRepository.save(partie);
@@ -22,10 +22,6 @@ export class PartiesService {
 
   findAll(): Promise<Partie[]> {
     return this.partieRepository.find();
-  }
-
-  findOne(id: number) {
-    return this.partieRepository.findOne({ id });
   }
 
   update(id: number, partie: UpdatePartyDto): Promise<any> {
@@ -37,11 +33,13 @@ export class PartiesService {
   }
   async getPartiesWithFilters(filterDto: CreatePartyDto): Promise<Partie[]> {
     console.log(filterDto);
-    const { nbjoueurs, iddifficulte, idjeux, createdat, finishedat } =
+    const { nbjoueurs, iddifficulte, idjeux, createdat, finishedat, id } =
       filterDto;
 
     let reglesJeux = await this.findAll();
-
+    if (id) {
+      reglesJeux = reglesJeux.filter((task) => task.id == id);
+    }
     if (idjeux) {
       reglesJeux = reglesJeux.filter((task) => task.idjeux == idjeux);
     }

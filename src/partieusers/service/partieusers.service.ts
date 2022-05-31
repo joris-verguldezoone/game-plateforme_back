@@ -16,7 +16,7 @@ export class PartieusersService {
   constructor(
     @InjectRepository(Partieuser)
     private readonly partieuserRepository: Repository<Partieuser>,
-  ) {}
+  ) { }
 
   create(partiesuser: CreatePartieuserDto): Promise<PartieusersInterface> {
     return this.partieuserRepository.save(partiesuser);
@@ -24,10 +24,6 @@ export class PartieusersService {
 
   findAll(): Promise<Partieuser[]> {
     return this.partieuserRepository.find();
-  }
-
-  findOne(id: number) {
-    return this.partieuserRepository.findOne({ id });
   }
 
   update(id: number, partiesuser: UpdatePartieuserDto): Promise<any> {
@@ -41,19 +37,22 @@ export class PartieusersService {
     filterDto: CreatePartieuserDto,
   ): Promise<Partieuser[]> {
     console.log(filterDto);
-    const { iduser, idpartie, statut } = filterDto;
+    const { iduser, idpartie, statut, id } = filterDto;
 
-    let reglesJeux = await this.findAll();
+    let partieUser = await this.findAll();
 
+    if (id) {
+      partieUser = partieUser.filter((task) => task.id == id);
+    }
     if (iduser) {
-      reglesJeux = reglesJeux.filter((task) => task.iduser == iduser);
+      partieUser = partieUser.filter((task) => task.iduser == iduser);
     }
     if (idpartie) {
-      reglesJeux = reglesJeux.filter((task) => task.idpartie === idpartie);
+      partieUser = partieUser.filter((task) => task.idpartie === idpartie);
     }
     if (statut) {
-      reglesJeux = reglesJeux.filter((task) => task.statut === statut);
+      partieUser = partieUser.filter((task) => task.statut === statut);
     }
-    return reglesJeux;
+    return partieUser;
   }
 }

@@ -15,7 +15,7 @@ import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 export class TypesService {
   constructor(
     @InjectRepository(Type) private readonly typeRepository: Repository<Type>,
-  ) {}
+  ) { }
 
   create(type: CreateTypeDto): Promise<TypesInterface> {
     return this.typeRepository.save(type);
@@ -23,10 +23,6 @@ export class TypesService {
 
   findAll(): Promise<Type[]> {
     return this.typeRepository.find();
-  }
-
-  findOne(id: number) {
-    return this.typeRepository.findOne({ id });
   }
 
   update(id: number, type: UpdateTypeDto): Promise<any> {
@@ -38,22 +34,26 @@ export class TypesService {
   }
   async getTypesWithFilters(filterDto: CreateTypeDto): Promise<Type[]> {
     console.log(filterDto);
-    const { typedejeux, nbdejeux, nbcartes, typedecarte } = filterDto;
+    const { typedejeux, nbdejeux, nbcartes, typedecarte, id } = filterDto;
 
-    let reglesJeux = await this.findAll();
+    let types = await this.findAll();
 
+
+    if (id) {
+      types = types.filter((task) => task.id == id);
+    }
     if (typedejeux) {
-      reglesJeux = reglesJeux.filter((task) => task.typedejeux == typedejeux);
+      types = types.filter((task) => task.typedejeux == typedejeux);
     }
     if (nbdejeux) {
-      reglesJeux = reglesJeux.filter((task) => task.nbdejeux == nbdejeux);
+      types = types.filter((task) => task.nbdejeux == nbdejeux);
     }
     if (nbcartes) {
-      reglesJeux = reglesJeux.filter((task) => task.nbcartes == nbcartes);
+      types = types.filter((task) => task.nbcartes == nbcartes);
     }
     if (typedecarte) {
-      reglesJeux = reglesJeux.filter((task) => task.typedecarte == typedecarte);
+      types = types.filter((task) => task.typedecarte == typedecarte);
     }
-    return reglesJeux;
+    return types;
   }
 }
