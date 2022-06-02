@@ -10,6 +10,7 @@ import { Partieuser } from '../model/entities/partieuser.entity';
 import { PartieusersInterface } from '../model/partieusers.interface';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
+import { GetPartieuserDto } from '../dto/get-partieuser.dto';
 
 @Injectable()
 export class PartieusersService {
@@ -34,7 +35,7 @@ export class PartieusersService {
     return this.partieuserRepository.delete(id);
   }
   async getPartieusersWithFilters(
-    filterDto: CreatePartieuserDto,
+    filterDto: GetPartieuserDto,
   ): Promise<Partieuser[]> {
     console.log(filterDto);
     const { iduser, idpartie, statut, id } = filterDto;

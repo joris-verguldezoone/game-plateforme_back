@@ -12,7 +12,7 @@ import { User } from '../../../users/model/entities/user.entity';
 @Index('iduser2', ['iduser2'], {})
 @Entity('listeamis', { schema: 'jeux' })
 export class Listeamis {
-  @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
+  @PrimaryGeneratedColumn('increment')
   public id: number;
 
   @Column('int', { name: 'iduser' })

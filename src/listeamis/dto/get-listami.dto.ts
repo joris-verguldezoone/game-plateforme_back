@@ -2,20 +2,32 @@ import { PartialType } from '@nestjs/swagger';
 import { CreateListeamiDto } from './create-listeami.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { GetListeamiDto } from './get-listami.dto';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
+export class GetListeamiDto {
 
-export class UpdateListeamiDto extends PartialType(GetListeamiDto) {
+  @IsNotEmpty()
+  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
-  readonly id: number;
+  id: number;
+
+  @IsNotEmpty()
+  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
-  readonly iduser: number;
+  iduser: number;
+
+  @IsNotEmpty()
+  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
-  readonly iduser2: number;
+  iduser2: number;
+
+  @IsNotEmpty()
+  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
-  readonly statut: number;
+  statut: number;
 }
+

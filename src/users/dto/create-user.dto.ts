@@ -1,11 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsNumber, IsNotEmpty, IsString, ValidateIf } from 'class-validator';
+import { GetUserDto } from './get-user.dto';
 
-export class CreateUserDto {
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty()
-  id: number;
+export class CreateUserDto extends PartialType(GetUserDto) {
+
 
   @IsNotEmpty()
   @IsString()
@@ -17,12 +16,15 @@ export class CreateUserDto {
   @ApiProperty()
   password: string;
 
-  @IsNumber()
+  // @Type(() => null)
+  // @IsNumber()
   @ApiProperty()
+  // @ValidateIf(idavatar => idavatar.otherProperty === null)
   idavatar: number;
 
   @IsNotEmpty()
   @IsNumber()
+  @Type(() => Number)
   @ApiProperty()
   role: number;
 }

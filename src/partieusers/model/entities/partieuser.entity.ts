@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "../../../users/model/entities/user.entity";
 import { Partie } from "../../../parties/model/entities/party.entity";
 
@@ -6,7 +6,7 @@ import { Partie } from "../../../parties/model/entities/party.entity";
 @Index("idpartie", ["idpartie"], {})
 @Entity("partieuser", { schema: "jeux" })
 export class Partieuser {
-    @Column("int", { primary: true, name: "id" })
+    @PrimaryGeneratedColumn('increment')
     public id: number;
 
     @Column("int", { name: "iduser" })

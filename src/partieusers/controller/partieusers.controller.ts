@@ -17,6 +17,7 @@ import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreatePartieuserDto } from '../dto/create-partieuser.dto';
 import { PartieusersInterface } from "../model/partieusers.interface";
 import { UpdatePartieuserDto } from "../dto/update-partieuser.dto";
+import { GetPartieuserDto } from '../dto/get-partieuser.dto';
 
 @ApiTags('partie_user')
 @Controller('partieusers')
@@ -41,7 +42,7 @@ export class PartieusersController {
     return this.partieusersService.remove(Number(id));
   }
   @Get('find')
-  getTask(@Query() filterDto: CreatePartieuserDto): Promise<Partieuser[]> {
+  getTask(@Query() filterDto: GetPartieuserDto): Promise<Partieuser[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {
       console.log(filterDto);

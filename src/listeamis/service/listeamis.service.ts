@@ -7,7 +7,7 @@ import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateListeamiDto } from '../dto/create-listeami.dto';
 import { ListeamisInterface } from "../model/listeamis.interface";
 import { UpdateListeamiDto } from "../dto/update-listeami.dto";
-
+import { GetListeamiDto } from "../dto/get-listami.dto";
 @Injectable()
 export class ListeamisService {
   constructor(
@@ -31,7 +31,7 @@ export class ListeamisService {
     return this.listeamisRepository.delete(id);
   }
   async getListeAmisWithFilters(
-    filterDto: CreateListeamiDto,
+    filterDto: GetListeamiDto,
   ): Promise<Listeamis[]> {
     console.log(filterDto);
     const { iduser, iduser2, statut, id } = filterDto;

@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Jeux } from "../../../jeux/model/entities/jeux.entity";
 import { Difficulte } from "../../../difficulte/model/entities/difficulte.entity";
 
@@ -6,7 +6,7 @@ import { Difficulte } from "../../../difficulte/model/entities/difficulte.entity
 @Index("iddifficulte", ["iddifficulte"], {})
 @Entity("reglesjeux", { schema: "jeux" })
 export class Reglesjeux {
-    @Column("int", { primary: true, name: "id" })
+    @PrimaryGeneratedColumn('increment')
     public id: number;
 
     @Column("int", { name: "idjeux" })
@@ -31,6 +31,7 @@ export class Reglesjeux {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     })
+
     @JoinColumn([{ name: "idjeux", referencedColumnName: "id" }])
     public idjeux2: Jeux;
 

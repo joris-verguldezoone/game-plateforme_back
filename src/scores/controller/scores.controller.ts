@@ -18,6 +18,7 @@ import { ScoresInterface } from '../model/scores.interface';
 import { Score } from '../model/entities/score.entity';
 import { CreateReglesjeuxDto } from "../../reglesjeux/dto/create-reglesjeux.dto";
 import { Reglesjeux } from "../../reglesjeux/model/entities/reglesjeux.entity";
+import { GetScoreDto } from '../dto/get-score.dto';
 @ApiTags('scores')
 @Controller('scores')
 export class ScoresController {
@@ -38,7 +39,7 @@ export class ScoresController {
     return this.scoresService.remove(Number(id));
   }
   @Get('find')
-  getTask(@Query() filterDto: CreateScoreDto): Promise<Score[]> {
+  getTask(@Query() filterDto: GetScoreDto): Promise<Score[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {
       console.log(filterDto);

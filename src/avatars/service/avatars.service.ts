@@ -7,7 +7,7 @@ import { Avatar } from '../model/entities/avatar.entity';
 import { User } from '../../users/model/entities/user.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
-import { CreateAvatarDto } from '../dto/create-avatar.dto';
+import { CreateAvatarsDto } from '../dto/create-avatar.dto';
 import { UpdateAvatarDto } from "../dto/update-avatar.dto";
 import { GetAvatarsDto } from "../dto/get-avatars.dto";
 
@@ -18,7 +18,7 @@ export class AvatarsService {
     private readonly avatarRepository: Repository<Avatar>,
   ) { }
 
-  create(avatar: CreateAvatarDto): Promise<AvatarInterface> {
+  create(avatar: CreateAvatarsDto): Promise<AvatarInterface> {
     return this.avatarRepository.save(avatar);
   }
 

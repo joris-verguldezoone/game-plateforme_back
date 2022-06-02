@@ -1,9 +1,13 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { GetTypeDto } from './get-type.dto';
 
-export class CreateTypeDto extends PartialType(GetTypeDto) {
+export class GetTypeDto {
+  @IsNotEmpty()
+  @Type(() => Number)
+  @IsNumber()
+  @ApiProperty()
+  id: number;
 
   @IsNotEmpty()
   @IsString()

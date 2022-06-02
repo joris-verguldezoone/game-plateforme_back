@@ -19,6 +19,7 @@ import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateListeamiDto } from '../dto/create-listeami.dto';
 import { ListeamisInterface } from "../model/listeamis.interface";
 import { UpdateListeamiDto } from "../dto/update-listeami.dto";
+import { GetListeamiDto } from '../dto/get-listami.dto';
 
 @ApiTags('liste_amis')
 @Controller('listeamis')
@@ -39,7 +40,7 @@ export class ListeamisController {
     return this.listeamisService.remove(Number(id));
   }
   @Get('find')
-  getTask(@Query() filterDto: CreateListeamiDto): Promise<Listeamis[]> {
+  getTask(@Query() filterDto: GetListeamiDto): Promise<Listeamis[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {
       console.log(filterDto);

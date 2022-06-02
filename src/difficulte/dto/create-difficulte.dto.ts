@@ -1,12 +1,11 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { GetDifficulteDto } from './get-difficulte.dto';
 
-export class CreateDifficulteDto {
+export class CreateDifficulteDto extends PartialType(GetDifficulteDto) {
   // @IsNotEmpty()
-  // @IsNumber()
-
-  @ApiProperty()
-  id: number;
+  // @IsNumber
 
   @IsNotEmpty()
   @IsString()
@@ -16,5 +15,6 @@ export class CreateDifficulteDto {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
+  @Type(() => Number)
   multiplicateurscore: number;
 }

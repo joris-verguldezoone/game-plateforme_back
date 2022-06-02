@@ -10,13 +10,13 @@ import {
 import { Listeamis } from '../../../listeamis/model/entities/listeami.entity';
 import { Partieuser } from '../../../partieusers/model/entities/partieuser.entity';
 import { Score } from '../../../scores/model/entities/score.entity';
-import { Expose } from 'class-transformer';
 import { Avatar } from '../../../avatars/model/entities/avatar.entity';
+import { Expose } from 'class-transformer';
 
 @Index('id_avatar', ['idavatar'], {})
 @Entity('user', { schema: 'jeux' })
 export class User {
-  @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
+  @PrimaryGeneratedColumn('increment')
   public id: number;
 
   @Column('varchar', { name: 'username', length: 255 })
@@ -46,12 +46,12 @@ export class User {
   @OneToMany(() => Score, (score) => score.iduser2)
   public scores: Score[];
 
-  @ManyToOne(() => Avatar, (avatar) => avatar.users, {
-    onDelete: 'SET NULL',
-    onUpdate: 'SET NULL',
-  })
-  @JoinColumn([{ name: 'idavatar', referencedColumnName: 'id' }])
-  public idavatar2: Avatar;
+  // @ManyToOne(() => Avatar, (avatar) => avatar.users, {
+  //   onDelete: 'SET NULL',
+  //   onUpdate: 'SET NULL',
+  // })
+  // @JoinColumn([{ name: 'idavatar', referencedColumnName: 'id' }])
+  // public idavatar2: Avatar;
 
   @Expose()
   get Username(): string {

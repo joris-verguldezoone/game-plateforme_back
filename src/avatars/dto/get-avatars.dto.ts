@@ -1,8 +1,12 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateAvatarDto } from './create-avatar.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
-export class GetAvatarsDto extends PartialType(CreateAvatarDto) {
+export class GetAvatarsDto {
+
+  @ApiProperty()
+  @Type(() => Number)
+  readonly id: number;
 
   @ApiProperty()
   readonly description: string;
@@ -11,5 +15,6 @@ export class GetAvatarsDto extends PartialType(CreateAvatarDto) {
   readonly image: string;
 
   @ApiProperty()
+  @Type(() => Number)
   readonly iduser: number;
 }

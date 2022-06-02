@@ -13,7 +13,7 @@ import { AvatarsService } from '../service/avatars.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AvatarInterface } from '../model/avatar.interface';
 import { Avatar } from '../model/entities/avatar.entity';
-import { CreateAvatarDto } from '../dto/create-avatar.dto';
+import { CreateAvatarsDto } from '../dto/create-avatar.dto';
 import { UpdateAvatarDto } from '../dto/update-avatar.dto';
 import { GetAvatarsDto } from '../dto/get-avatars.dto';
 
@@ -23,7 +23,7 @@ export class AvatarsController {
   constructor(private readonly avatarsService: AvatarsService) { }
 
   @Post()
-  create(@Body() avatar: CreateAvatarDto): Promise<AvatarInterface> {
+  create(@Body() avatar: CreateAvatarsDto): Promise<AvatarInterface> {
     return this.avatarsService.create(avatar);
   }
   @Get('find')

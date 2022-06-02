@@ -1,14 +1,13 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { GetReglesjeuxDto } from './get-reglesjeux.dto';
 
-export class CreateReglesjeuxDto {
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty()
-  id: number;
+export class CreateReglesjeuxDto extends PartialType(GetReglesjeuxDto) {
 
   @IsNotEmpty()
   @IsNumber()
+  @Type(() => Number)
   @ApiProperty()
   idjeux: number;
 
@@ -24,16 +23,19 @@ export class CreateReglesjeuxDto {
 
   @IsNotEmpty()
   @IsNumber()
+  @Type(() => Number)
   @ApiProperty()
   iddifficulte: number;
 
   @IsNotEmpty()
   @IsNumber()
+  @Type(() => Number)
   @ApiProperty()
   nbjoueurmin: number;
 
   @IsNotEmpty()
   @IsNumber()
+  @Type(() => Number)
   @ApiProperty()
   nbjoueurmax: number;
 }

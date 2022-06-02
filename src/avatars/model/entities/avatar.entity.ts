@@ -5,13 +5,14 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../../users/model/entities/user.entity';
 
 @Index('iduser', ['iduser'], {})
 @Entity('avatar', { schema: 'jeux' })
 export class Avatar {
-  @Column('int', { primary: true, name: 'id' })
+  @PrimaryGeneratedColumn('increment')
   public id: number;
 
   @Column('text', { name: 'description' })
@@ -30,6 +31,6 @@ export class Avatar {
   @JoinColumn([{ name: 'iduser', referencedColumnName: 'id' }])
   public iduser2: User;
 
-  @OneToMany(() => User, (user) => user.idavatar2)
-  public users: User[];
+  // @OneToMany(() => User, (user) => user.idavatar2)
+  // public users: User[];
 }

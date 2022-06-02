@@ -1,4 +1,4 @@
-import { Column, Entity, Index,JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Type } from '../../../types/model/entities/type.entity';
 import { Partie } from '../../../parties/model/entities/party.entity';
 import { Reglesjeux } from '../../../reglesjeux/model/entities/reglesjeux.entity';
@@ -6,7 +6,7 @@ import { Reglesjeux } from '../../../reglesjeux/model/entities/reglesjeux.entity
 @Index('idtype', ['idtype'], {})
 @Entity('jeux', { schema: 'jeux' })
 export class Jeux {
-  @Column('int', { primary: true, name: 'id' })
+  @PrimaryGeneratedColumn('increment')
   public id: number;
 
   @Column('text', { name: 'nom' })

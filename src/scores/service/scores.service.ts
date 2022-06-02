@@ -10,6 +10,7 @@ import { Score } from '../model/entities/score.entity';
 import { ScoresInterface } from '../model/scores.interface';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
+import { GetScoreDto } from '../dto/get-score.dto';
 
 @Injectable()
 export class ScoresService {
@@ -34,7 +35,7 @@ export class ScoresService {
   remove(id: number): Promise<any> {
     return this.scoreRepository.delete(id);
   }
-  async getScoresWithFilters(filterDto: CreateScoreDto): Promise<Score[]> {
+  async getScoresWithFilters(filterDto: GetScoreDto): Promise<Score[]> {
     console.log(filterDto);
     const { score, iduser, idpartie, id } =
       filterDto;

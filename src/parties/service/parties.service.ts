@@ -8,6 +8,7 @@ import { Partie } from '../model/entities/party.entity';
 import { PartiesInterface } from '../model/parties.interface';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
 import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
+import { GetPartyDto } from '../dto/get-party.dto';
 
 @Injectable()
 export class PartiesService {

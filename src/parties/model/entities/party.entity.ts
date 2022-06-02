@@ -1,10 +1,11 @@
 import {
-  Column,
-  Entity,
+    Column,
+    Entity,
     Index,
     JoinColumn,
     ManyToOne,
     OneToMany,
+    PrimaryGeneratedColumn,
 } from "typeorm";
 import { Difficulte } from "../../../difficulte/model/entities/difficulte.entity";
 import { Jeux } from "../../../jeux/model/entities/jeux.entity";
@@ -15,7 +16,7 @@ import { Score } from "../../../scores/model/entities/score.entity";
 @Index("idjeux", ["idjeux"], {})
 @Entity("partie", { schema: "jeux" })
 export class Partie {
-    @Column("int", { primary: true, name: "id" })
+    @PrimaryGeneratedColumn('increment')
     public id: number;
 
     @Column("int", { name: "nbjoueurs" })

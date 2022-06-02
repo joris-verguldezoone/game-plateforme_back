@@ -17,6 +17,7 @@ import { Reglesjeux } from '../../reglesjeux/model/entities/reglesjeux.entity';
 import { CreateTypeDto } from '../dto/create-type.dto';
 import { TypesInterface } from "../model/types.interface";
 import { UpdateTypeDto } from "../dto/update-type.dto";
+import { GetTypeDto } from '../dto/get-type.dto';
 
 @ApiTags('type')
 @Controller('types')
@@ -38,7 +39,7 @@ export class TypesController {
     return this.typesService.remove(Number(id));
   }
   @Get('find')
-  getTask(@Query() filterDto: CreateTypeDto): Promise<Type[]> {
+  getTask(@Query() filterDto: GetTypeDto): Promise<Type[]> {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {
       console.log(filterDto);

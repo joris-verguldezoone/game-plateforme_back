@@ -1,11 +1,9 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { GetAvatarsDto } from './get-avatars.dto';
 
-export class CreateAvatarDto {
-  @IsNotEmpty()
-  @IsNumber()
-  @ApiProperty()
-  id: number;
+export class CreateAvatarsDto extends PartialType(GetAvatarsDto) {
 
   @IsNotEmpty()
   @IsString()
@@ -20,5 +18,6 @@ export class CreateAvatarDto {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
+  @Type(() => Number)
   iduser: number;
 }

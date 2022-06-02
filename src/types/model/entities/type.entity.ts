@@ -3,7 +3,7 @@ import { Jeux } from "../../../jeux/model/entities/jeux.entity";
 
 @Entity("type", { schema: "jeux" })
 export class Type {
-    @PrimaryGeneratedColumn({ type: "int", name: "id" })
+    @PrimaryGeneratedColumn('increment')
     public id: number;
 
     @Column("text", { name: "typedejeux" })

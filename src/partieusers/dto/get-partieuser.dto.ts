@@ -1,15 +1,15 @@
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
-import { GetScoreDto } from './get-score.dto';
+import { CreatePartieuserDto } from './create-partieuser.dto';
 
-export class CreateScoreDto extends PartialType(GetScoreDto) {
 
+export class GetPartieuserDto {
   @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
   @ApiProperty()
-  score: number;
+  id: number;
 
   @IsNotEmpty()
   @IsNumber()
@@ -22,4 +22,10 @@ export class CreateScoreDto extends PartialType(GetScoreDto) {
   @Type(() => Number)
   @ApiProperty()
   idpartie: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @Type(() => Number)
+  @ApiProperty()
+  statut: number;
 }

@@ -13,7 +13,7 @@ import { Partie } from "../../../parties/model/entities/party.entity";
 @Index("idpartie", ["idpartie"], {})
 @Entity("score", { schema: "jeux" })
 export class Score {
-    @PrimaryGeneratedColumn({ type: "int", name: "id" })
+    @PrimaryGeneratedColumn('increment')
     public id: number;
 
     @Column("int", { name: "score" })

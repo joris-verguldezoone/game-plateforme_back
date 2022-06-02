@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Any, createQueryBuilder, Repository } from 'typeorm';
 import { from, Observable } from 'rxjs';
 import { Jeux } from '../model/entities/jeux.entity';
 import { CreateReglesjeuxDto } from '../../reglesjeux/dto/create-reglesjeux.dto';
@@ -31,15 +31,27 @@ export class JeuxService {
   remove(id: number): Promise<any> {
     return this.jeuxRepository.delete(id);
   }
-  async getGamesWithFilters(filterDto: GetJeuxDto): Promise<Jeux[]> {
-
+  async getGamesWithFilters(filterDto: GetJeuxDto): Promise<any> {
+    /*  La fonction renvoie désormais des innerJoin
+        Elle ne peut plus etre de type Promise<Jeux> et return autre chose  */
+    console.log(filterDto); // typeof()
+    console.log(filterDto.id)
     const { nom, idtype, id } = filterDto;
+
+    if (id) {
+      const query = await createQueryBuilder('jeux', 'j')
+        .innerJoinAndSelect('j.reglesjeux', 'r')
+        .innerJoinAndSelect('j.idtype2', 't')
+        .innerJoinAndSelect('r.iddifficulte2', 'd')
+        .where('j.id =:id', { id: id })
+        .getOne(); // getMany() si on cherche plusieurs jeux et l'ensemble de leur innerJoin
+
+      console.log(query['reglesjeux'][0].iddifficulte2.difficulte) // exemple d'accessibilité au résultat
+      return query // il faudrait normaliser les Fetch 
+    }
 
     let jeux = await this.findAll();
 
-    if (id) {
-      jeux = jeux.filter((task) => task.id === id);
-    }
     if (nom) {
       jeux = jeux.filter((task) => task.nom === nom);
     }

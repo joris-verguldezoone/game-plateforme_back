@@ -38,6 +38,7 @@ export class UsersService {
   }
   async getUsersWithFilters(filterDto: GetUserDto): Promise<User[]> {
     console.log(filterDto);
+    console.log(typeof (filterDto));
     console.log('zoulette');
     const { id, username, idavatar, role } = filterDto;
 
