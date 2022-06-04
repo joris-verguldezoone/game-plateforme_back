@@ -6,27 +6,23 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class GetListeamiDto {
 
-  @IsNotEmpty()
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   id: number;
 
-  @IsNotEmpty()
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   iduser: number;
 
-  @IsNotEmpty()
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   iduser2: number;
 
-  @IsNotEmpty()
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   statut: number;
 }

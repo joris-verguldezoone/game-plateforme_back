@@ -5,13 +5,13 @@ import { Type } from 'class-transformer';
 
 export class GetDifficulteDto {
     @Type(() => Number)
-    @ApiProperty()
+    @ApiProperty({ required: false })
     readonly id: number;
 
-    @ApiProperty()
+    @ApiProperty({ required: false })
     readonly difficulte: string;
 
-    @ApiProperty()
+    @ApiProperty({ required: false })
     @Type(() => Number)
     readonly multiplicateurscore: number;
 }

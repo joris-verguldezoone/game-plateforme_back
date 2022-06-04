@@ -6,22 +6,29 @@ import { Type } from 'class-transformer';
 
 export class GetReglesjeuxDto {
     @Type(() => Number)
-    @ApiProperty()
+    @ApiProperty({ required: false })
     readonly id: number;
+
     @Type(() => Number)
-    @ApiProperty()
+    @ApiProperty({ required: false })
     readonly idjeux: number;
-    @ApiProperty()
+
+    @ApiProperty({ required: false })
     readonly nomregle: string;
-    @ApiProperty()
+
+    @ApiProperty({ required: false })
     readonly regle: string;
+
     @Type(() => Number)
-    @ApiProperty()
+    @ApiProperty({ required: false })
     readonly iddifficulte: number;
+
     @Type(() => Number)
-    @ApiProperty()
+    @ApiProperty({ required: false })
     readonly nbjoueurmin: number;
+
     @Type(() => Number)
-    @ApiProperty()
+    @ApiProperty({ required: false })
     readonly nbjoueurmax: number;
+
 }

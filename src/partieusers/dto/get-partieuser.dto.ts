@@ -5,27 +5,23 @@ import { CreatePartieuserDto } from './create-partieuser.dto';
 
 
 export class GetPartieuserDto {
-  @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
-  @ApiProperty()
+  @ApiProperty({ required: false })
   id: number;
 
-  @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
-  @ApiProperty()
+  @ApiProperty({ required: false })
   iduser: number;
 
-  @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
-  @ApiProperty()
+  @ApiProperty({ required: false })
   idpartie: number;
 
-  @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
-  @ApiProperty()
+  @ApiProperty({ required: false })
   statut: number;
 }

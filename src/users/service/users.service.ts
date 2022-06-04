@@ -39,9 +39,13 @@ export class UsersService {
   async getUsersWithFilters(filterDto: GetUserDto): Promise<User[]> {
     console.log(filterDto);
     console.log(typeof (filterDto));
-    console.log('zoulette');
-    const { id, username, idavatar, role } = filterDto;
 
+    console.log('zoulette');
+    var { id, username, idavatar, role } = filterDto;
+    console.log(typeof (filterDto.role));
+    console.log(filterDto.role);
+    console.log(typeof (role))
+    console.log(role)
     let allUsers = await this.findAll();
 
     if (id) {
@@ -55,7 +59,7 @@ export class UsersService {
       allUsers = allUsers.filter((task) => task.idavatar == idavatar);
     }
     if (role) {
-      allUsers = allUsers.filter((task) => task.role === role);
+      allUsers = allUsers.filter((task) => task.role === Number(role));
     }
     return allUsers;
   }

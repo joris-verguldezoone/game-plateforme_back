@@ -4,17 +4,17 @@ import { Type } from 'class-transformer';
 
 export class GetAvatarsDto {
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   readonly id: number;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   readonly description: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   readonly image: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   readonly iduser: number;
 }

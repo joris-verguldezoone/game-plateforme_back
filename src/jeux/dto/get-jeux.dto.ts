@@ -7,16 +7,19 @@ import { Type } from 'class-transformer';
 export class GetJeuxDto {
   @IsOptional()
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   readonly id: number;
+
   @IsOptional()
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   readonly nom: string;
   @IsOptional()
+
   @IsNumber()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   readonly idtype: number;
+
 }

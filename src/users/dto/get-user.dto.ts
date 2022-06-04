@@ -5,21 +5,21 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GetUserDto {
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @Type(() => Number)
   readonly id: number;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   readonly username: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   readonly password: string;
 
-  @ApiProperty()
-  // @Type(() => Number)
+  @ApiProperty({ required: false })
+  // @Type(() => Number) // ça peut etre un type null 
   readonly idavatar: number;
 
   @Type(() => Number)
-  @ApiProperty()
+  @ApiProperty({ required: false })
   readonly role: number;
 }
