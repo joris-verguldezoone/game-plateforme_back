@@ -43,6 +43,7 @@ export class TypesController {
     console.log(filterDto);
     if (Object.keys(filterDto).length) {
       console.log(filterDto);
+      console.log("we are in controller")
       return this.typesService.getTypesWithFilters(filterDto);
     } else {
       console.log('?????');

@@ -35,6 +35,7 @@ export class TypesService {
   }
   async getTypesWithFilters(filterDto: GetTypeDto): Promise<Type[]> {
     console.log(filterDto);
+    console.log('we are in services')
     const { typedejeux, nbdejeux, nbcartes, typedecarte, id } = filterDto;
 
     let types = await this.findAll();

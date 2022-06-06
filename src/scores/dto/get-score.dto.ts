@@ -4,19 +4,19 @@ import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
 import { CreateScoreDto } from './create-score.dto';
 
 export class GetScoreDto {
-  @IsNumber()
   @Type(() => Number)
-  @ApiProperty({ required: false }) id: number;
+  @ApiProperty({ required: false })
+  readonly id: number;
 
-  @IsNumber()
   @Type(() => Number)
-  @ApiProperty({ required: false }) score: number;
+  @ApiProperty({ required: false })
+  readonly score: number;
 
-  @IsNumber()
   @Type(() => Number)
-  @ApiProperty({ required: false }) iduser: number;
+  @ApiProperty({ required: false })
+  readonly iduser: number;
 
-  @IsNumber()
   @Type(() => Number)
-  @ApiProperty({ required: false }) idpartie: number;
+  @ApiProperty({ required: false })
+  readonly idpartie: number;
 }

@@ -1,22 +1,25 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsOptional } from 'class-validator';
 
 export class GetTypeDto {
+  @ApiProperty({ required: false })
   @Type(() => Number)
-  @IsNumber()
-  @ApiProperty({ required: false }) id: number;
+  readonly id: number;
 
-  @IsString()
-  @ApiProperty({ required: false }) typedejeux: string;
+  @ApiProperty({ required: false })
+  @Type(() => String)
+  readonly typedejeux: string;
 
-  @IsNumber()
+  @ApiProperty({ required: false })
   @Type(() => Number)
-  @ApiProperty({ required: false }) nbdejeux: number;
+  readonly nbdejeux: number;
 
+  @ApiProperty({ required: false })
   @Type(() => Number)
-  @ApiProperty({ required: false }) nbcartes: number;
+  readonly nbcartes: number;
 
-  @IsString()
-  @ApiProperty({ required: false }) typedecarte: string;
+  @ApiProperty({ required: false })
+  @Type(() => String)
+  readonly typedecarte: string;
 }
