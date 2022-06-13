@@ -27,6 +27,7 @@ import { Score } from './scores/model/entities/score.entity';
 import { Type } from './types/model/entities/type.entity';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from "./auth/auth.service";
+import { LobbyModule } from './lobby/lobby.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { AuthService } from "./auth/auth.service";
     ReglesjeuxModule,
     ScoresModule,
     TypesModule,
+    LobbyModule,
 
   ],
   controllers: [AppController],
