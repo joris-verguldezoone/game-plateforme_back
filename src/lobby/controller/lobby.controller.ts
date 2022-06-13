@@ -14,7 +14,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { LobbyInterface } from '../model/lobby.interface';
 import { Lobby } from '../model/entities/lobby.entity';
-import { CreateLobbyDto } from '../../lobby/dto/create-Lobby.dto';
+import { CreateLobbyDto } from '../../lobby/dto/create-lobby.dto';
 import { UpdateLobbyDto } from "../dto/update-lobby.dto";
 import { GetLobbyDto } from "../dto/get-lobby.dto";
 

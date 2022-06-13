@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 06 juin 2022 à 12:26
+-- Généré le : lun. 13 juin 2022 à 07:58
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.4.9
 
@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données : `jeux`
@@ -103,6 +103,29 @@ CREATE TABLE IF NOT EXISTS `listeamis` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `lobby`
+--
+
+DROP TABLE IF EXISTS `lobby`;
+CREATE TABLE IF NOT EXISTS `lobby` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nbMin` int NOT NULL,
+  `nbMax` int NOT NULL,
+  `idJeux` int NOT NULL,
+  `idRegle` int NOT NULL,
+  `idDifficulte` int NOT NULL,
+  `idUser` int NOT NULL,
+  `nomLobby` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idJeux` (`idJeux`),
+  KEY `idRegle` (`idRegle`),
+  KEY `idDifficulte` (`idDifficulte`),
+  KEY `FK_8bc5ccec62c28a7ecb70e0d1259` (`idUser`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `partie`
 --
 
@@ -141,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `partieuser` (
   PRIMARY KEY (`id`),
   KEY `idpartie` (`idpartie`),
   KEY `iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Déchargement des données de la table `partieuser`
@@ -204,21 +227,6 @@ CREATE TABLE IF NOT EXISTS `score` (
 INSERT INTO `score` (`id`, `score`, `iduser`, `idpartie`) VALUES
 (4, 666, 3, 2),
 (5, 667, 3, 2);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `team`
---
-
-DROP TABLE IF EXISTS `team`;
-CREATE TABLE IF NOT EXISTS `team` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `color` varchar(12) CHARACTER SET utf8 NOT NULL,
-  `id_user` int NOT NULL COMMENT 'on fait passer l''username en socket',
-  `id_game` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -307,6 +315,15 @@ ALTER TABLE `jeux`
 ALTER TABLE `listeamis`
   ADD CONSTRAINT `FK_016ec7d6b21da04efa9d2ddac04` FOREIGN KEY (`iduser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_8e7a06d2c21bc7656f213324d65` FOREIGN KEY (`iduser2`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `lobby`
+--
+ALTER TABLE `lobby`
+  ADD CONSTRAINT `FK_777bb96771a7a16fbec1913ad8b` FOREIGN KEY (`idDifficulte`) REFERENCES `difficulte` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_8bc5ccec62c28a7ecb70e0d1259` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_e2a803bd36a6d12ae09e4e2866d` FOREIGN KEY (`idJeux`) REFERENCES `jeux` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_ee3ddc82c4c4de18737e56ba03d` FOREIGN KEY (`idRegle`) REFERENCES `reglesjeux` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `partie`
