@@ -6,31 +6,31 @@ import { GetPartyDto } from './get-party.dto';
 export class CreatePartyDto extends PartialType(GetPartyDto) {
 
   @IsNotEmpty()
-  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
   nbjoueurs: number;
 
   @IsNotEmpty()
-  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
   iddifficulte: number;
 
   @IsNotEmpty()
-  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
   idjeux: number;
 
   @IsNotEmpty()
-  @IsDate()
+  @ApiProperty()
+  @Type(() => Number)
+  idregle: number;
+
+  @IsNotEmpty()
   @ApiProperty()
   @Type(() => Date)
   createdat: Date;
 
   @IsNotEmpty()
-  @IsDate()
   @ApiProperty()
   @Type(() => Date)
   finishedat: Date;

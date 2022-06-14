@@ -22,6 +22,10 @@ export class UpdatePartyDto extends PartialType(GetPartyDto) {
   @Type(() => Number)
   readonly idjeux: number;
 
+  @ApiProperty()
+  @Type(() => Number)
+  idregle: number;
+
   @Type(() => Date)
   @ApiProperty()
   readonly createdat: Date;

@@ -1,3 +1,4 @@
+import { Reglesjeux } from "src/reglesjeux/model/entities/reglesjeux.entity";
 import {
     Column,
     Entity,
@@ -28,6 +29,9 @@ export class Partie {
     @Column("int", { name: "idjeux" })
     public idjeux: number;
 
+    @Column("int", { name: "idregle" })
+    public idregle: number;
+
     @Column("datetime", { name: "createdat", default: () => "CURRENT_TIMESTAMP" })
     public createdat: Date;
 
@@ -50,6 +54,13 @@ export class Partie {
 
     @OneToMany(() => Partieuser, (partieuser) => partieuser.idpartie2)
     public partieuser: Partieuser[];
+
+
+    @JoinColumn([{ name: "idregle", referencedColumnName: "id" }])
+    public regle: Reglesjeux;
+
+    @OneToMany(() => Reglesjeux, (regle) => regle.regle)
+    public idRegle: Reglesjeux[];
 
     @OneToMany(() => Score, (score) => score.idpartie2)
     public score: Score[];

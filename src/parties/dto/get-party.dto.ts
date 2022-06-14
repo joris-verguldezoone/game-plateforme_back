@@ -8,32 +8,31 @@ import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
 
 
 export class GetPartyDto {
-    @IsNumber()
     @ApiProperty({ required: false })
     @Type(() => Number)
     id: number;
 
-    @IsNumber()
     @ApiProperty({ required: false })
     @Type(() => Number)
     nbjoueurs: number;
 
-    @IsNumber()
     @ApiProperty({ required: false })
     @Type(() => Number)
     iddifficulte: number;
 
-    @IsNumber()
     @ApiProperty({ required: false })
     @Type(() => Number)
     idjeux: number;
 
-    @IsDate()
+    @IsNotEmpty()
+    @ApiProperty()
+    @Type(() => Number)
+    idregle: number;
+
     @ApiProperty({ required: false })
     @Type(() => Date)
     createdat: Date;
 
-    @IsDate()
     @ApiProperty({ required: false })
     @Type(() => Date)
     finishedat: Date;

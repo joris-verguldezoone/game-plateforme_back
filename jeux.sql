@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 13 juin 2022 à 07:58
+-- Généré le : mar. 14 juin 2022 à 08:04
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.4.9
 
@@ -15,7 +15,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données : `jeux`
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `avatar` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `difficulte` (
   `multiplicateurscore` int NOT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `difficulte`
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `jeux` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `idtype` (`idtype`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `jeux`
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `listeamis` (
   PRIMARY KEY (`id`),
   KEY `iduser2` (`iduser2`),
   KEY `iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,25 @@ CREATE TABLE IF NOT EXISTS `lobby` (
   KEY `idRegle` (`idRegle`),
   KEY `idDifficulte` (`idDifficulte`),
   KEY `FK_8bc5ccec62c28a7ecb70e0d1259` (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `lobby`
+--
+
+INSERT INTO `lobby` (`id`, `nbMin`, `nbMax`, `idJeux`, `idRegle`, `idDifficulte`, `idUser`, `nomLobby`) VALUES
+(9, 2, 4, 2, 1, 2, 21, 'Premier essaie'),
+(10, 2, 4, 2, 1, 1, 21, 'oui'),
+(11, 2, 4, 1, 1, 2, 21, 'Premier essaie'),
+(12, 4, 6, 2, 1, 2, 21, 'Premier essaie'),
+(13, 2, 4, 2, 1, 2, 21, 'ok'),
+(14, 2, 2, 1, 3, 1, 21, ''),
+(15, 2, 7, 1, 2, 1, 21, 'Apex'),
+(16, 2, 2, 1, 3, 1, 21, 'fssssss'),
+(17, 2, 2, 1, 3, 2, 21, 'kkkkk'),
+(18, 2, 7, 1, 2, 1, 21, 'ooo'),
+(19, 2, 8, 3, 4, 2, 21, 'ccc'),
+(20, 2, 2, 2, 1, 1, 21, 'lkjlkj');
 
 -- --------------------------------------------------------
 
@@ -131,23 +149,24 @@ CREATE TABLE IF NOT EXISTS `lobby` (
 
 DROP TABLE IF EXISTS `partie`;
 CREATE TABLE IF NOT EXISTS `partie` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `nbjoueurs` int NOT NULL,
   `iddifficulte` int NOT NULL,
   `idjeux` int NOT NULL,
   `createdat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `finishedat` datetime DEFAULT NULL,
-  `id` int NOT NULL AUTO_INCREMENT,
+  `idregle` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idjeux` (`idjeux`),
   KEY `iddifficulte` (`iddifficulte`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `partie`
 --
 
-INSERT INTO `partie` (`nbjoueurs`, `iddifficulte`, `idjeux`, `createdat`, `finishedat`, `id`) VALUES
-(2, 2, 3, '2022-06-02 10:02:58', '2022-06-02 10:02:58', 2);
+INSERT INTO `partie` (`id`, `nbjoueurs`, `iddifficulte`, `idjeux`, `createdat`, `finishedat`, `idregle`) VALUES
+(5, 0, 2, 2, '2022-06-14 09:51:41', '2022-06-14 09:51:41', 2);
 
 -- --------------------------------------------------------
 
@@ -164,14 +183,7 @@ CREATE TABLE IF NOT EXISTS `partieuser` (
   PRIMARY KEY (`id`),
   KEY `idpartie` (`idpartie`),
   KEY `iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Déchargement des données de la table `partieuser`
---
-
-INSERT INTO `partieuser` (`iduser`, `idpartie`, `statut`, `id`) VALUES
-(3, 2, 1, 2);
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -191,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `reglesjeux` (
   PRIMARY KEY (`id`),
   KEY `idjeux` (`idjeux`),
   KEY `iddifficulte` (`iddifficulte`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `reglesjeux`
@@ -218,15 +230,7 @@ CREATE TABLE IF NOT EXISTS `score` (
   PRIMARY KEY (`id`),
   KEY `idpartie` (`idpartie`),
   KEY `iduser` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Déchargement des données de la table `score`
---
-
-INSERT INTO `score` (`id`, `score`, `iduser`, `idpartie`) VALUES
-(4, 666, 3, 2),
-(5, 667, 3, 2);
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -242,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `type` (
   `nbcartes` int NOT NULL,
   `typedecarte` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `type`
@@ -267,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_avatar` (`idavatar`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `user`
@@ -291,7 +295,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `idavatar`, `role`) VALUES
 (33, 'wnxbcv', 'mlkmlk', NULL, 0),
 (34, 'yooo', 'mlkmlk', NULL, 0),
 (35, 'joooojhhj', 'oooooojjjjjjjjjjjj', NULL, 0),
-(36, 'joooojhhj', 'oooooojjjjjjjjjjjj', NULL, 0);
+(36, 'joooojhhj', 'oooooojjjjjjjjjjjj', NULL, 0),
+(37, 'jjj', 'jjj', 0, 0);
 
 --
 -- Contraintes pour les tables déchargées
