@@ -6,12 +6,11 @@ import { GetJeuxDto } from './get-jeux.dto';
 export class CreateJeuxDto extends PartialType(GetJeuxDto) {
 
   @IsNotEmpty()
-  @IsString()
   @ApiProperty()
+  @Type(() => String)
   nom: string;
 
   @IsNotEmpty()
-  @IsNumber()
   @ApiProperty()
   @Type(() => Number)
   idtype: number;

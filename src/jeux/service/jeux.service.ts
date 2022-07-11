@@ -31,10 +31,10 @@ export class JeuxService {
   remove(id: number): Promise<any> {
     return this.jeuxRepository.delete(id);
   }
-  async getGamesWithFilters(filterDto: GetJeuxDto): Promise<any> {
+  async getGamesWithFilters(filterDto: GetJeuxDto): Promise<any> { // FILTER FUNCTION
     /*  La fonction renvoie désormais des innerJoin
         Elle ne peut plus etre de type Promise<Jeux> et return autre chose  */
-    console.log(filterDto); // typeof()
+    console.log(filterDto); // typeof() avant autre vérification s'il y a un bug
     console.log(filterDto.id)
     const { nom, idtype, id } = filterDto;
 

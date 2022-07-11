@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, Query, } from '@nestjs/common';
 import { JeuxService } from '../service/jeux.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';

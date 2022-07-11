@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
-    .setTitle('Sortir les crackheads du gouffre')
-    .setDescription('The cats API description')
+    .setTitle('Sortir du gouffre')
+    .setDescription('A card game for everyone')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
